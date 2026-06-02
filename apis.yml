@@ -1,0 +1,74 @@
+aid: thefork
+name: TheFork
+description: >-
+  TheFork is a leading European restaurant reservations marketplace, part of
+  Tripadvisor, connecting diners with tens of thousands of restaurants across
+  Europe and beyond. Through its developers portal, TheFork exposes a public
+  REST API surface for restaurants, point-of-sale systems, and third-party
+  partners to integrate with TheFork Management platform. The API enables
+  partners to build custom booking flows, create and manage reservations with
+  full detail such as meal date, party size, and customer data, surface preset
+  menus and curated dining experiences, and access personalized guest data
+  including allergies, dietary restrictions, and seating preferences. Offerings
+  include a B2B API for restaurants and a POS API for point-of-sale providers.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Restaurant
+  - Reservations
+  - Booking
+  - Dining
+  - Point Of Sale
+  - Marketplace
+url: https://raw.githubusercontent.com/api-evangelist/thefork/refs/heads/main/apis.yml
+created: '2026-06-02'
+modified: '2026-06-02'
+specificationVersion: '0.19'
+apis:
+  - aid: thefork:rest-api
+    name: TheFork B2B API
+    description: >-
+      TheFork B2B API lets restaurants and groups integrate with TheFork
+      Management platform. It supports designing custom booking flows, creating
+      reservations with meal date, party size, and customer data, presenting
+      preset menus, and accessing personalized guest data such as allergies,
+      dietary restrictions, and seating preferences. Authentication uses an API
+      key and bearer token.
+    humanURL: https://docs.thefork.io/B2B-API/introduction
+    tags:
+      - Reservations
+      - Booking
+      - Menus
+      - Guests
+    properties:
+      - type: Documentation
+        url: https://docs.thefork.io/B2B-API/introduction
+      - type: GettingStarted
+        url: https://docs.thefork.io/getting-started
+  - aid: thefork:pos-api
+    name: TheFork POS API
+    description: >-
+      TheFork POS API enables point-of-sale providers to integrate their
+      systems with TheFork Management platform, synchronizing reservations and
+      restaurant operations data. The API documentation describes how the
+      integration works for POS partners and the resources available for
+      connecting POS systems to TheFork.
+    humanURL: https://docs.thefork.io/POS-API/how-it-works
+    tags:
+      - Point Of Sale
+      - Reservations
+    properties:
+      - type: Documentation
+        url: https://docs.thefork.io/POS-API/how-it-works
+      - type: GettingStarted
+        url: https://docs.thefork.io/getting-started
+common:
+  - type: Website
+    url: https://www.thefork.com
+  - type: Documentation
+    url: https://docs.thefork.io/
+  - type: GitHubOrganization
+    url: https://github.com/theFork
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
