@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-customer-input-schema.json",
+  "title": "CustomerInput",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "example": "Camille"
+    },
+    "lastName": {
+      "type": "string",
+      "example": "Durand"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "example": "camille.durand@example.com"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "description": "Phone number in international format.",
+      "example": "+33612345678"
+    }
+  }
+}

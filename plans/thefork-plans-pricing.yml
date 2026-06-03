@@ -1,0 +1,56 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: TheFork
+providerId: thefork
+created: '2026-06-03'
+modified: '2026-06-03'
+reconciled: true
+tags:
+  - Restaurant
+  - Reservations
+  - Point Of Sale
+  - Partnership
+  - Enterprise
+description: >-
+  TheFork does not publish a public, self-serve price for its developer APIs.
+  Access to the B2B API and POS API is granted through a partner agreement:
+  prospective partners register and TheFork's Partnership / Integrations team
+  scopes the integration and contract. Commercial terms (including any per-cover
+  commission or subscription tied to the underlying TheFork Manager product) are
+  negotiated per partner, and rate limits are set at the contract level. The
+  separate TheFork Manager restaurant software has its own published pricing,
+  but the API itself is offered under a custom enterprise/partnership model.
+sources:
+  - https://docs.thefork.io/getting-started
+  - https://docs.thefork.io/preliminary-steps
+  - https://docs.thefork.io/B2B-API/introduction
+  - https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+plans:
+  - id: thefork-partner-api
+    name: Partner API Access
+    type: enterprise
+    description: >-
+      Contract-based access to TheFork B2B and POS APIs granted after partner
+      onboarding by the Integrations team.
+    entries:
+      - label: API requests
+        name: api_requests
+        type: quota
+        metric: request
+        limit: -1
+        timeFrame: usage
+        notes: Rate limits set per contract; not publicly published.
+      - label: Partnership / integration fee
+        name: partnership_fee
+        type: flat
+        metric: varies
+        limit: -1
+        timeFrame: usage
+        notes: Commercial terms negotiated per partner.
+    elements:
+      - name: B2B API (reservations, customers, menus, reviews)
+      - name: POS API (order sync)
+      - name: Webhooks for reservation created/updated events
+      - name: Auth0 OAuth 2.0 client credentials
+      - name: Dedicated integrations support

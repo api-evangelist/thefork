@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-reservation-update-request-schema.json",
+  "title": "ReservationUpdateRequest",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "object",
+  "description": "Fields that can be changed on an existing reservation.",
+  "properties": {
+    "mealDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Updated meal date and time (ISO 8601).",
+      "example": "2026-06-20T21:00:00Z"
+    },
+    "partySize": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Updated number of guests.",
+      "example": 5
+    }
+  }
+}

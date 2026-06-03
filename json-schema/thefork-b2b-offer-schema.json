@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-offer-schema.json",
+  "title": "Offer",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "example": "PERCENT_DISCOUNT"
+    },
+    "name": {
+      "type": "string",
+      "example": "Summer 2026"
+    },
+    "discount": {
+      "type": "number",
+      "description": "Discount applied, where relevant.",
+      "example": 25
+    },
+    "price": {
+      "type": "integer",
+      "description": "Price in the smallest currency unit (cents).",
+      "example": 4500
+    }
+  }
+}

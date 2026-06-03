@@ -22,7 +22,7 @@ tags:
   - Marketplace
 url: https://raw.githubusercontent.com/api-evangelist/thefork/refs/heads/main/apis.yml
 created: '2026-06-02'
-modified: '2026-06-02'
+modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
   - aid: thefork:rest-api
@@ -31,44 +31,179 @@ apis:
       TheFork B2B API lets restaurants and groups integrate with TheFork
       Management platform. It supports designing custom booking flows, creating
       reservations with meal date, party size, and customer data, presenting
-      preset menus, and accessing personalized guest data such as allergies,
-      dietary restrictions, and seating preferences. Authentication uses an API
-      key and bearer token.
+      preset menus, accessing personalized guest data such as allergies,
+      dietary restrictions, and seating preferences, and retrieving guest
+      reviews. The API is fronted by a Kong gateway and documented with OpenAPI
+      3. Authentication uses the Auth0 OAuth 2.0 client credentials flow to
+      obtain a bearer access token.
     humanURL: https://docs.thefork.io/B2B-API/introduction
+    baseURL: https://api.thefork.io
     tags:
       - Reservations
       - Booking
       - Menus
       - Guests
+      - Reviews
     properties:
       - type: Documentation
         url: https://docs.thefork.io/B2B-API/introduction
+      - type: APIReference
+        url: https://docs.thefork.io/B2B-API/API%20specifications/post-v-1-restaurants-id-reservations
       - type: GettingStarted
         url: https://docs.thefork.io/getting-started
+      - type: Authentication
+        url: https://docs.thefork.io/B2B-API/authentication
+      - type: OpenAPI
+        url: openapi/thefork-b2b-openapi.yml
+      - type: JSONSchema
+        url: json-schema/thefork-b2b-reservation-schema.json
+      - type: JSONSchema
+        url: json-schema/thefork-b2b-customer-schema.json
+      - type: JSONSchema
+        url: json-schema/thefork-b2b-review-schema.json
+      - type: JSONStructure
+        url: json-structure/thefork-b2b-reservation-structure.json
+      - type: JSON-LD
+        url: json-ld/thefork-b2b-context.jsonld
+      - type: Example
+        url: examples/thefork-b2b-create-reservation-example.json
+      - type: Example
+        url: examples/thefork-b2b-get-reservation-example.json
+      - type: Example
+        url: examples/thefork-b2b-find-customer-by-phone-example.json
+      - type: Example
+        url: examples/thefork-b2b-get-review-example.json
   - aid: thefork:pos-api
     name: TheFork POS API
     description: >-
       TheFork POS API enables point-of-sale providers to integrate their
       systems with TheFork Management platform, synchronizing reservations and
-      restaurant operations data. The API documentation describes how the
-      integration works for POS partners and the resources available for
-      connecting POS systems to TheFork.
+      restaurant operations data. TheFork calls the POS provider's configured
+      webhook endpoints (for example a receipt opening URL) to open orders when
+      a diner is seated, then receives final order details such as total amount
+      and currency back, marking reservations as left when payment completes.
+      Authentication uses an API key supplied in the X-Api-Key header for
+      requests to TheFork, and a bearer token for callbacks.
     humanURL: https://docs.thefork.io/POS-API/how-it-works
     tags:
       - Point Of Sale
       - Reservations
+      - Orders
     properties:
       - type: Documentation
         url: https://docs.thefork.io/POS-API/how-it-works
+      - type: APIReference
+        url: https://docs.thefork.io/POS-API/Flow/create-order
       - type: GettingStarted
         url: https://docs.thefork.io/getting-started
+      - type: Authentication
+        url: https://docs.thefork.io/preliminary-steps
+      - type: OpenAPI
+        url: openapi/thefork-pos-openapi.yml
+      - type: JSONSchema
+        url: json-schema/thefork-pos-order-schema.json
+      - type: JSONStructure
+        url: json-structure/thefork-pos-order-structure.json
+      - type: Example
+        url: examples/thefork-pos-create-order-example.json
 common:
   - type: Website
     url: https://www.thefork.com
   - type: Documentation
     url: https://docs.thefork.io/
+  - type: Portal
+    url: https://docs.thefork.io/
+  - type: GettingStarted
+    url: https://docs.thefork.io/getting-started
+  - type: SignUp
+    url: https://docs.thefork.io/preliminary-steps
+  - type: TermsOfService
+    url: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+  - type: Blog
+    url: https://medium.com/thefork
   - type: GitHubOrganization
-    url: https://github.com/theFork
+    url: https://github.com/lafourchette
+  - type: SpectralRules
+    url: rules/thefork-rules.yml
+  - type: Vocabulary
+    url: vocabulary/thefork-vocabulary.yml
+  - type: JSON-LD
+    url: json-ld/thefork-context.jsonld
+  - type: NaftikoCapability
+    url: capabilities/b2b-reservations.yaml
+  - type: NaftikoCapability
+    url: capabilities/b2b-customers.yaml
+  - type: NaftikoCapability
+    url: capabilities/b2b-reviews.yaml
+  - type: NaftikoCapability
+    url: capabilities/pos-orders.yaml
+  - type: Plans
+    url: plans/thefork-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/thefork-rate-limits.yml
+  - type: FinOps
+    url: finops/thefork-finops.yml
+  - type: Features
+    data:
+      - name: Custom Booking Funnel
+        description: >-
+          Build a custom booking flow with real-time availability, offers, and
+          preset menus, then create reservations directly against a restaurant.
+      - name: Reservation Management
+        description: >-
+          Create, retrieve, and update reservations including meal date, party
+          size, and customer data.
+      - name: Guest Profiles
+        description: >-
+          Access personalized guest data such as allergies, intolerances,
+          dietary restrictions, and seating preferences.
+      - name: Customer Lookup
+        description: >-
+          Find customer details by phone number for a given restaurant.
+      - name: Reviews
+        description: Retrieve guest review details by review UUID.
+      - name: Asynchronous Data Sync
+        description: >-
+          Synchronize data without requiring real-time updates, using webhooks
+          for reservation created and updated events.
+      - name: POS Order Sync
+        description: >-
+          Open and close point-of-sale orders tied to reservations and sync
+          final amounts back to TheFork Management.
+  - type: UseCases
+    data:
+      - name: Restaurant Booking Integration
+        description: >-
+          Restaurants and groups embed TheFork availability and booking into
+          their own websites and apps.
+      - name: POS Integration
+        description: >-
+          Point-of-sale vendors connect their systems to reflect seated guests,
+          open tickets, and reconcile spend with reservations.
+      - name: Guest Personalization
+        description: >-
+          Use allergy, dietary, and seating preferences to personalize the
+          dining experience and pre-service preparation.
+      - name: Review Aggregation
+        description: Pull guest reviews into restaurant CRM and reputation tooling.
+  - type: Integrations
+    data:
+      - name: TheFork Management (TFM)
+        description: The restaurant management platform the APIs synchronize with.
+      - name: Tripadvisor
+        description: Parent company; TheFork is part of the Tripadvisor group.
+      - name: Auth0
+        description: Identity provider issuing OAuth 2.0 client credentials tokens.
+      - name: Kong
+        description: API gateway fronting the public API with auth, rate limiting, and IP allowlisting.
+  - type: Solutions
+    data:
+      - name: For Restaurants
+        description: B2B API for restaurants and groups to manage bookings and guests.
+      - name: For POS Providers
+        description: POS API for point-of-sale vendors to sync orders and reservations.
+      - name: For Partners
+        description: Partner API for third-party partners (announced as available soon).
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

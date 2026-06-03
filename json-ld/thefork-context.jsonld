@@ -1,0 +1,128 @@
+{
+  "@context": {
+    "pan": "https://apievangelist.com/ns#",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "CustomerInput": "pan:CustomerInput",
+    "firstName": {
+      "@id": "schema:givenName"
+    },
+    "lastName": {
+      "@id": "schema:familyName"
+    },
+    "email": {
+      "@id": "schema:email"
+    },
+    "phoneNumber": {
+      "@id": "schema:telephone"
+    },
+    "Customer": "pan:Customer",
+    "id": {
+      "@id": "pan:id"
+    },
+    "allergies": {
+      "@id": "pan:allergies"
+    },
+    "dietaryRestrictions": {
+      "@id": "pan:dietaryRestrictions"
+    },
+    "seatingPreferences": {
+      "@id": "pan:seatingPreferences"
+    },
+    "Offer": "pan:Offer",
+    "type": {
+      "@id": "pan:type"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "discount": {
+      "@id": "pan:discount"
+    },
+    "price": {
+      "@id": "pan:price"
+    },
+    "ReservationCreateRequest": "pan:ReservationCreateRequest",
+    "mealDate": {
+      "@id": "pan:mealDate"
+    },
+    "partySize": {
+      "@id": "schema:partySize"
+    },
+    "customer": {
+      "@id": "pan:customer"
+    },
+    "offerId": {
+      "@id": "pan:offerId"
+    },
+    "menuId": {
+      "@id": "pan:menuId"
+    },
+    "notes": {
+      "@id": "pan:notes"
+    },
+    "Reservation": "pan:Reservation",
+    "restaurantId": {
+      "@id": "pan:restaurantId"
+    },
+    "status": {
+      "@id": "pan:status"
+    },
+    "offer": {
+      "@id": "pan:offer"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified"
+    },
+    "ReservationStatus": "pan:ReservationStatus",
+    "ReservationUpdateRequest": "pan:ReservationUpdateRequest",
+    "Review": "pan:Review",
+    "reservationId": {
+      "@id": "pan:reservationId"
+    },
+    "rating": {
+      "@id": "schema:ratingValue"
+    },
+    "comment": {
+      "@id": "schema:reviewBody"
+    },
+    "Money": "pan:Money",
+    "amount": {
+      "@id": "schema:price"
+    },
+    "currency": {
+      "@id": "schema:priceCurrency"
+    },
+    "OrderClose": "pan:OrderClose",
+    "total": {
+      "@id": "pan:total"
+    },
+    "closedAt": {
+      "@id": "pan:closedAt"
+    },
+    "Order": "pan:Order",
+    "orderId": {
+      "@id": "pan:orderId"
+    },
+    "reservationStatus": {
+      "@id": "pan:reservationStatus"
+    },
+    "startTime": {
+      "@id": "schema:startTime"
+    },
+    "prepayment": {
+      "@id": "pan:prepayment"
+    },
+    "tables": {
+      "@id": "pan:tables"
+    },
+    "Table": "pan:Table",
+    "areaName": {
+      "@id": "pan:areaName"
+    }
+  }
+}

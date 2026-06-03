@@ -1,0 +1,54 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: TheFork
+providerId: thefork
+created: '2026-06-03'
+modified: '2026-06-03'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Restaurant
+  - Reservations
+  - Point Of Sale
+description: >-
+  TheFork enforces rate limiting at its Kong API gateway. Limits are applied per
+  partner/credential at a default level defined in the partner contract rather
+  than published as fixed public numbers; partners can request revisions through
+  TheFork's support/integrations team. Exceeding the limit returns HTTP 429. The
+  limit values themselves are not disclosed publicly and depend on the agreement.
+sources:
+  - https://docs.thefork.io/getting-started
+  - https://docs.thefork.io/B2B-API/introduction
+  - https://docs.thefork.io/best-practices
+  - https://medium.com/thefork/how-we-leverage-kong-to-build-a-public-api-41073709541c
+responseCodes:
+  throttled: 429
+limits:
+  - name: Per-partner request rate (B2B API)
+    scope: key
+    metric: varies
+    limit: 'contract-defined; not publicly published'
+    notes: Enforced at the Kong gateway per credential. Contact support to adjust.
+  - name: Per-partner request rate (POS API)
+    scope: key
+    metric: varies
+    limit: 'contract-defined; not publicly published'
+    notes: Enforced at the Kong gateway per credential.
+policies:
+  - name: Contract-scoped limits
+    description: >-
+      Default rate limits are defined in the partner contract and can be revised
+      by contacting TheFork support/integrations.
+  - name: Gateway enforcement
+    description: >-
+      Rate limiting and IP allowlisting are applied by Kong gateway plugins at a
+      single public entry point.
+  - name: Token reuse
+    description: >-
+      Bearer tokens last 8600 seconds; partners must reuse a valid token rather
+      than requesting new tokens before expiry to avoid overloading the system.
+  - name: Retry and resilience
+    description: >-
+      For POS callbacks TheFork may retry on 5xx responses; clients should make
+      handlers idempotent.

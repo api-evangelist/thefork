@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/manager/v1/restaurants/rst_10293/reservations",
+    "headers": { "Authorization": "Bearer <access_token>", "Content-Type": "application/json" },
+    "body": {
+      "mealDate": "2026-06-20T20:30:00Z",
+      "partySize": 4,
+      "customer": {
+        "firstName": "Camille",
+        "lastName": "Durand",
+        "email": "camille.durand@example.com",
+        "phoneNumber": "+33612345678"
+      },
+      "offerId": "off_summer25",
+      "menuId": "menu_tasting",
+      "notes": "Window table if possible."
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "rsv_8f3c2a1b",
+      "restaurantId": "rst_10293",
+      "status": "CONFIRMED",
+      "mealDate": "2026-06-20T20:30:00Z",
+      "partySize": 4,
+      "customer": { "id": "cus_55ab", "firstName": "Camille", "lastName": "Durand" },
+      "createdAt": "2026-06-03T09:15:00Z"
+    }
+  }
+}

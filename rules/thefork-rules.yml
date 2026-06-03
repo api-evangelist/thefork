@@ -1,0 +1,83 @@
+rules:
+  thefork-info-contact:
+    description: API info must include contact details.
+    given: $.info
+    severity: error
+    then:
+      field: contact
+      function: truthy
+  thefork-info-description:
+    description: API info must include a description.
+    given: $.info
+    severity: error
+    then:
+      field: description
+      function: truthy
+  thefork-server-https:
+    description: Server URLs must use HTTPS and the api.thefork.io host.
+    given: $.servers[*].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://[a-z0-9.-]*thefork\.io'
+  thefork-operation-id-verb:
+    description: operationId must start with a known verb (get, list, create, update, delete, find, open, close).
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(get|list|create|update|delete|find|open|close)[A-Z]?'
+  thefork-operation-summary-title-case:
+    description: Operation summaries must be Title Case.
+    given: $.paths[*][get,post,put,patch,delete].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z][A-Za-z0-9]*(\s([A-Z][A-Za-z0-9]*|By|Of|And))*$'
+  thefork-operation-tags:
+    description: Every operation must declare at least one tag.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: warn
+    then:
+      field: tags
+      function: truthy
+  thefork-tag-title-case:
+    description: Tag names must be Title Case.
+    given: $.tags[*].name
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z][A-Za-z0-9]*(\s[A-Z][A-Za-z0-9]*)*$'
+  thefork-path-kebab-case:
+    description: Path segments (excluding parameters) must be kebab-case.
+    given: $.paths[*]~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(/([a-z0-9-]+|\{[A-Za-z0-9]+\}))*$'
+  thefork-property-camel-case:
+    description: Schema property names must be camelCase.
+    given: $.components.schemas[*].properties[*]~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]*$'
+  thefork-security-defined:
+    description: A security scheme must be defined (OAuth2 client credentials for B2B, API key for POS).
+    given: $.components.securitySchemes
+    severity: error
+    then:
+      function: truthy
+  thefork-error-responses:
+    description: Write operations should document a 401 response.
+    given: $.paths[*][post,patch,put,delete].responses
+    severity: info
+    then:
+      field: '401'
+      function: truthy

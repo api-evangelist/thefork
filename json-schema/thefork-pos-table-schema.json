@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-pos-table-schema.json",
+  "title": "Table",
+  "x-api-evangelist-source": "openapi/thefork-pos-openapi.yml",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "T12"
+    },
+    "areaName": {
+      "type": "string",
+      "example": "Terrace"
+    }
+  }
+}

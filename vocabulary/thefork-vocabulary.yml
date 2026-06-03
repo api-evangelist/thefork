@@ -1,0 +1,167 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "TheFork"
+  description: >-
+    Unified taxonomy for TheFork's public API surface, mapping the operational
+    dimension (B2B API and POS API operations) to the capability dimension
+    (Naftiko workflows for restaurant booking and point-of-sale order sync).
+  created: "2026-06-03"
+  modified: "2026-06-03"
+
+operational:
+  apis:
+    - name: "TheFork B2B API"
+      namespace: "b2b"
+      version: "v1"
+      baseUrl: "https://api.thefork.io/manager/v1"
+      status: active
+    - name: "TheFork POS API"
+      namespace: "pos"
+      version: "v1"
+      baseUrl: "https://api.thefork.io/pos/v1"
+      status: active
+  resources:
+    - name: reservations
+      api: "TheFork B2B API"
+      actions: [create, get, update]
+    - name: customers
+      api: "TheFork B2B API"
+      actions: [list, find]
+    - name: reviews
+      api: "TheFork B2B API"
+      actions: [get]
+    - name: orders
+      api: "TheFork POS API"
+      actions: [open, close]
+  actions:
+    - name: create
+      method: POST
+      pattern: write
+    - name: get
+      method: GET
+      pattern: read
+    - name: list
+      method: GET
+      pattern: query
+    - name: find
+      method: GET
+      pattern: query
+    - name: update
+      method: PATCH
+      pattern: write
+    - name: open
+      method: POST
+      pattern: write
+    - name: close
+      method: POST
+      pattern: write
+  schemas:
+    core:
+      - Reservation
+      - Customer
+      - Order
+    booking:
+      - ReservationCreateRequest
+      - ReservationUpdateRequest
+      - Offer
+    reviews:
+      - Review
+    pos:
+      - OrderClose
+      - Money
+      - Table
+  parameters:
+    identifiers:
+      - id
+      - phoneNumber
+      - orderId
+    headers:
+      - CustomerId
+      - X-Api-Key
+      - Authorization
+  enums:
+    reservationStatus:
+      - REQUESTED
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - REFUSED
+      - NO_SHOW
+      - ARRIVED
+      - SEATED
+      - LEFT
+  authentication:
+    - scheme: OAuth2 Client Credentials
+      flow: clientCredentials
+      tokenUrl: https://auth.thefork.io/oauth/token
+      apis: ["TheFork B2B API"]
+    - scheme: API Key
+      location: header (X-Api-Key)
+      apis: ["TheFork POS API"]
+
+capability:
+  workflows:
+    - name: "Reservations"
+      file: capabilities/b2b-reservations.yaml
+      apis: ["TheFork B2B API"]
+      tools: 3
+      personas: [Restaurant Integrator]
+      domains: [Booking]
+    - name: "Customers"
+      file: capabilities/b2b-customers.yaml
+      apis: ["TheFork B2B API"]
+      tools: 2
+      personas: [Restaurant Integrator]
+      domains: [Guest Data]
+    - name: "Reviews"
+      file: capabilities/b2b-reviews.yaml
+      apis: ["TheFork B2B API"]
+      tools: 1
+      personas: [Restaurant Integrator]
+      domains: [Reputation]
+    - name: "Orders"
+      file: capabilities/pos-orders.yaml
+      apis: ["TheFork POS API"]
+      tools: 2
+      personas: [POS Provider]
+      domains: [Point Of Sale]
+  personas:
+    - id: restaurant-integrator
+      name: "Restaurant Integrator"
+      description: "Builds custom booking and guest experiences against TheFork Management."
+      workflows: [Reservations, Customers, Reviews]
+    - id: pos-provider
+      name: "POS Provider"
+      description: "Syncs point-of-sale orders and payment with TheFork reservations."
+      workflows: [Orders]
+  domains:
+    - name: Booking
+    - name: Guest Data
+    - name: Reputation
+    - name: Point Of Sale
+  namespaces:
+    consumed: [b2b-reservations, b2b-customers, b2b-reviews, pos-orders]
+    rest: [b2b-reservations-rest, b2b-customers-rest, b2b-reviews-rest, pos-orders-rest]
+    mcp: [b2b-reservations-mcp, b2b-customers-mcp, b2b-reviews-mcp, pos-orders-mcp]
+  binds:
+    - THEFORK_TOKEN
+    - THEFORK_API_KEY
+
+crossReference:
+  - resource: reservations
+    operations: [createReservation, getReservation, updateReservation]
+    workflows: [Reservations]
+    personas: [Restaurant Integrator]
+  - resource: customers
+    operations: [listCustomers, findCustomerByPhone]
+    workflows: [Customers]
+    personas: [Restaurant Integrator]
+  - resource: reviews
+    operations: [getReview]
+    workflows: [Reviews]
+    personas: [Restaurant Integrator]
+  - resource: orders
+    operations: [openOrder, closeOrder]
+    workflows: [Orders]
+    personas: [POS Provider]

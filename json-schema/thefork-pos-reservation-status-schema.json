@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-pos-reservation-status-schema.json",
+  "title": "ReservationStatus",
+  "x-api-evangelist-source": "openapi/thefork-pos-openapi.yml",
+  "type": "string",
+  "enum": [
+    "RECORDED",
+    "CONFIRMED",
+    "CANCELED",
+    "NO_SHOW",
+    "REQUESTED",
+    "REFUSED"
+  ]
+}

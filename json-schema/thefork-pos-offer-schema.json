@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-pos-offer-schema.json",
+  "title": "Offer",
+  "x-api-evangelist-source": "openapi/thefork-pos-openapi.yml",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "discount": {
+      "type": "number"
+    },
+    "price": {
+      "type": "integer",
+      "description": "Price in the smallest currency unit (cents)."
+    }
+  }
+}

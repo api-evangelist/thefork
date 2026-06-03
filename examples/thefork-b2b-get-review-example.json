@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/manager/v1/reviews/3f1d9a44-7c2e-4b6a-9f10-2a5e8b0c1d23",
+    "headers": { "Authorization": "Bearer <access_token>" }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "3f1d9a44-7c2e-4b6a-9f10-2a5e8b0c1d23",
+      "restaurantId": "rst_10293",
+      "reservationId": "rsv_8f3c2a1b",
+      "rating": 9.2,
+      "comment": "Excellent service and food.",
+      "createdAt": "2026-06-21T10:00:00Z"
+    }
+  }
+}

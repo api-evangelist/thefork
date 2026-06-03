@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "Reservation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Reservation identifier.",
+      "example": "rsv_8f3c2a1b"
+    },
+    "restaurantId": {
+      "type": "string",
+      "description": "Identifier of the restaurant.",
+      "example": "rst_10293"
+    },
+    "status": {
+      "$ref": "./thefork-b2b-reservation-status-schema.json"
+    },
+    "mealDate": {
+      "type": "datetime",
+      "description": "The date and time of the meal (ISO 8601).",
+      "example": "2026-06-20T20:30:00Z"
+    },
+    "partySize": {
+      "type": "int32",
+      "description": "Number of guests.",
+      "example": 4
+    },
+    "customer": {
+      "$ref": "./thefork-b2b-customer-schema.json"
+    },
+    "offer": {
+      "$ref": "./thefork-b2b-offer-schema.json"
+    },
+    "createdAt": {
+      "type": "datetime",
+      "example": "2026-06-03T09:15:00Z"
+    },
+    "updatedAt": {
+      "type": "datetime",
+      "example": "2026-06-03T09:15:00Z"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: TheFork
+providerId: thefork
+created: '2026-06-03'
+modified: '2026-06-03'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Restaurant
+  - Reservations
+  - Partnership
+description: >-
+  FOCUS-aligned FinOps view of TheFork's developer APIs: access is governed by a
+  custom partner contract rather than metered, self-serve, usage-priced billing,
+  so cost data is partner-specific and invoiced under the partnership agreement.
+sources:
+  - https://docs.thefork.io/getting-started
+  - https://docs.thefork.io/preliminary-steps
+  - https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: LA FOURCHETTE SAS
+serviceCategory: Restaurant Reservations
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Per-Invoice
+  billingCurrency: EUR
+focusColumns:
+  ServiceCategory: Restaurant Reservations
+  ServiceName: TheFork API (B2B + POS)
+  PublisherName: LA FOURCHETTE SAS
+  ProviderName: TheFork
+  ChargeCategory: Usage
+  PricingCategory: Committed
+  BillingCurrency: EUR
+  ChargeFrequency: Recurring
+meters:
+  - name: API access
+    description: >-
+      Contract-based access to the B2B and POS APIs; not metered per request in
+      a public price book.
+    unit: partnership
+    focusChargeCategory: Usage
+principles:
+  - name: Teams need to collaborate
+    description: >-
+      Partner technical and business teams coordinate with TheFork's
+      integrations team to scope the contract and integration.
+  - name: Decisions are driven by the business value
+    description: >-
+      API spend is justified by reservation and guest-experience value rather
+      than raw request volume.
+  - name: Everyone takes ownership for their usage
+    description: >-
+      Partners own their credential usage and stay within contract-defined rate
+      limits, requesting changes when needed.
+  - name: FinOps data should be accessible and timely
+    description: >-
+      Commercial and usage terms are documented in the partner contract; public
+      per-request cost data is not published.

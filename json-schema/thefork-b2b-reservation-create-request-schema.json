@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-reservation-create-request-schema.json",
+  "title": "ReservationCreateRequest",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "object",
+  "required": [
+    "mealDate",
+    "partySize",
+    "customer"
+  ],
+  "properties": {
+    "mealDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time of the meal (ISO 8601).",
+      "example": "2026-06-20T20:30:00Z"
+    },
+    "partySize": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of guests.",
+      "example": 4
+    },
+    "customer": {
+      "$ref": "./thefork-b2b-customer-input-schema.json"
+    },
+    "offerId": {
+      "type": "string",
+      "description": "Identifier of an applied offer, if any.",
+      "example": "off_summer25"
+    },
+    "menuId": {
+      "type": "string",
+      "description": "Identifier of a selected preset menu, if any.",
+      "example": "menu_tasting"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text note attached to the reservation.",
+      "example": "Window table if possible."
+    }
+  }
+}

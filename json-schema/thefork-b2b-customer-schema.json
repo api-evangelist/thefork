@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-customer-schema.json",
+  "title": "Customer",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "cus_55ab"
+    },
+    "firstName": {
+      "type": "string",
+      "example": "Camille"
+    },
+    "lastName": {
+      "type": "string",
+      "example": "Durand"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "example": "camille.durand@example.com"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "example": "+33612345678"
+    },
+    "allergies": {
+      "type": "array",
+      "description": "Known allergies and intolerances.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "peanuts",
+        "shellfish"
+      ]
+    },
+    "dietaryRestrictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "vegetarian"
+      ]
+    },
+    "seatingPreferences": {
+      "type": "array",
+      "description": "Preferred seating areas or arrangements.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "terrace"
+      ]
+    }
+  }
+}

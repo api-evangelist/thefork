@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-reservation-schema.json",
+  "title": "Reservation",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Reservation identifier.",
+      "example": "rsv_8f3c2a1b"
+    },
+    "restaurantId": {
+      "type": "string",
+      "description": "Identifier of the restaurant.",
+      "example": "rst_10293"
+    },
+    "status": {
+      "$ref": "./thefork-b2b-reservation-status-schema.json"
+    },
+    "mealDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time of the meal (ISO 8601).",
+      "example": "2026-06-20T20:30:00Z"
+    },
+    "partySize": {
+      "type": "integer",
+      "description": "Number of guests.",
+      "example": 4
+    },
+    "customer": {
+      "$ref": "./thefork-b2b-customer-schema.json"
+    },
+    "offer": {
+      "$ref": "./thefork-b2b-offer-schema.json"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-06-03T09:15:00Z"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-06-03T09:15:00Z"
+    }
+  }
+}

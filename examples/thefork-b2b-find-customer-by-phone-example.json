@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/manager/v1/restaurants/rst_10293/customers/phone/+33612345678",
+    "headers": { "Authorization": "Bearer <access_token>" }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "cus_55ab",
+      "firstName": "Camille",
+      "lastName": "Durand",
+      "email": "camille.durand@example.com",
+      "phoneNumber": "+33612345678",
+      "allergies": ["peanuts"],
+      "dietaryRestrictions": ["vegetarian"],
+      "seatingPreferences": ["terrace"]
+    }
+  }
+}

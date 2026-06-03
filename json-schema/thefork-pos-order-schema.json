@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-pos-order-schema.json",
+  "title": "Order",
+  "x-api-evangelist-source": "openapi/thefork-pos-openapi.yml",
+  "type": "object",
+  "required": [
+    "orderId",
+    "createdAt",
+    "reservationStatus",
+    "partySize",
+    "startTime"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "TheFork's UUID for the order.",
+      "example": "2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the order was opened.",
+      "example": "2026-06-20T20:35:00Z"
+    },
+    "reservationStatus": {
+      "$ref": "./thefork-pos-reservation-status-schema.json"
+    },
+    "partySize": {
+      "type": "integer",
+      "description": "Number of guests.",
+      "example": 4
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled meal start time (ISO 8601).",
+      "example": "2026-06-20T20:30:00Z"
+    },
+    "customer": {
+      "$ref": "./thefork-pos-customer-schema.json"
+    },
+    "prepayment": {
+      "$ref": "./thefork-pos-money-schema.json"
+    },
+    "offer": {
+      "$ref": "./thefork-pos-offer-schema.json"
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "$ref": "./thefork-pos-table-schema.json"
+      }
+    }
+  }
+}

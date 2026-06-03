@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-reservation-status-schema.json",
+  "title": "ReservationStatus",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "string",
+  "description": "Lifecycle status of a reservation.",
+  "enum": [
+    "REQUESTED",
+    "RECORDED",
+    "CONFIRMED",
+    "CANCELED",
+    "REFUSED",
+    "NO_SHOW",
+    "ARRIVED",
+    "SEATED",
+    "LEFT"
+  ]
+}

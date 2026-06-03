@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/manager/v1/reservations/rsv_8f3c2a1b",
+    "headers": { "Authorization": "Bearer <access_token>" }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "rsv_8f3c2a1b",
+      "restaurantId": "rst_10293",
+      "status": "SEATED",
+      "mealDate": "2026-06-20T20:30:00Z",
+      "partySize": 4,
+      "customer": { "id": "cus_55ab", "firstName": "Camille", "lastName": "Durand" },
+      "createdAt": "2026-06-03T09:15:00Z",
+      "updatedAt": "2026-06-20T20:35:00Z"
+    }
+  }
+}

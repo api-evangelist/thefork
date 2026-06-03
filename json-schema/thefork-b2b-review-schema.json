@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/thefork/main/json-schema/thefork-b2b-review-schema.json",
+  "title": "Review",
+  "x-api-evangelist-source": "openapi/thefork-b2b-openapi.yml",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "3f1d9a44-7c2e-4b6a-9f10-2a5e8b0c1d23"
+    },
+    "restaurantId": {
+      "type": "string",
+      "example": "rst_10293"
+    },
+    "reservationId": {
+      "type": "string",
+      "example": "rsv_8f3c2a1b"
+    },
+    "rating": {
+      "type": "number",
+      "description": "Overall rating score.",
+      "example": 9.2
+    },
+    "comment": {
+      "type": "string",
+      "example": "Excellent service and food."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-06-21T10:00:00Z"
+    }
+  }
+}

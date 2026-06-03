@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "pan": "https://apievangelist.com/ns#",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Customer": "pan:Customer",
+    "id": {
+      "@id": "pan:id"
+    },
+    "firstName": {
+      "@id": "schema:givenName"
+    },
+    "lastName": {
+      "@id": "schema:familyName"
+    },
+    "allergies": {
+      "@id": "pan:allergies"
+    },
+    "dietaryRestrictions": {
+      "@id": "pan:dietaryRestrictions"
+    },
+    "Money": "pan:Money",
+    "amount": {
+      "@id": "schema:price"
+    },
+    "currency": {
+      "@id": "schema:priceCurrency"
+    },
+    "Offer": "pan:Offer",
+    "type": {
+      "@id": "pan:type"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "discount": {
+      "@id": "pan:discount"
+    },
+    "price": {
+      "@id": "pan:price"
+    },
+    "OrderClose": "pan:OrderClose",
+    "total": {
+      "@id": "pan:total"
+    },
+    "closedAt": {
+      "@id": "pan:closedAt"
+    },
+    "Order": "pan:Order",
+    "orderId": {
+      "@id": "pan:orderId"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated"
+    },
+    "reservationStatus": {
+      "@id": "pan:reservationStatus"
+    },
+    "partySize": {
+      "@id": "schema:partySize"
+    },
+    "startTime": {
+      "@id": "schema:startTime"
+    },
+    "customer": {
+      "@id": "pan:customer"
+    },
+    "prepayment": {
+      "@id": "pan:prepayment"
+    },
+    "offer": {
+      "@id": "pan:offer"
+    },
+    "tables": {
+      "@id": "pan:tables"
+    },
+    "ReservationStatus": "pan:ReservationStatus",
+    "Table": "pan:Table",
+    "areaName": {
+      "@id": "pan:areaName"
+    }
+  }
+}
