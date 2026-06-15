@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TheFork POS API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.thefork.io/pos/v1/orders",
+            "headers": [
+              {
+                "name": "CustomerId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Called by TheFork to the POS provider's configured receipt opening URL when a reservation is seated, instructing the POS to open an order for the reservation. The POS responds with 204 on success; TheFork may retry on 5xx errors."
+        },
+        {
+          "info": {
+            "name": "Close Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.thefork.io/pos/v1/orders/:orderId/close",
+            "headers": [
+              {
+                "name": "X-Api-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "TheFork's UUID for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Close an order on payment and send the final order details (total amount and currency) back to TheFork so the reservation can be marked LEFT."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

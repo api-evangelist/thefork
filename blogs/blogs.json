@@ -1,0 +1,21 @@
+{
+  "repo": "thefork",
+  "feeds": [
+    {
+      "source": "https://medium.com/feed/thefork",
+      "feed_url": "https://medium.com/feed/thefork",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf",
+      "feed_url": "https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-14T20:42:17Z"
+}

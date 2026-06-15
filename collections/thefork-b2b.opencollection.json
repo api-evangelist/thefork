@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TheFork B2B API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.thefork.io/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reservations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.thefork.io/manager/v1/restaurants/:id/reservations",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a reservation for a given restaurant, with all details such as meal date, party size, and customer data."
+        },
+        {
+          "info": {
+            "name": "Get Reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thefork.io/manager/v1/reservations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The reservation identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve the reservation details for a given reservation id."
+        },
+        {
+          "info": {
+            "name": "Update Reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.thefork.io/manager/v1/reservations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The reservation identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a reservation meal date and party size."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Customer By Phone Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thefork.io/manager/v1/restaurants/:id/customers/phone/:phoneNumber",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier."
+              },
+              {
+                "name": "phoneNumber",
+                "value": "",
+                "type": "path",
+                "description": "Customer phone number in international format."
+              }
+            ]
+          },
+          "docs": "Get the customer details for a given customer phone number."
+        },
+        {
+          "info": {
+            "name": "List Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thefork.io/manager/v1/customers"
+          },
+          "docs": "Retrieve customer profiles associated with the authenticated client."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reviews",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Review Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thefork.io/manager/v1/reviews/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Review UUID."
+              }
+            ]
+          },
+          "docs": "Retrieve the review details for a given review UUID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
