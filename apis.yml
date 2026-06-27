@@ -57,15 +57,15 @@ apis:
         url: json-schema/thefork-b2b-review-schema.json
       - type: JSONStructure
         url: json-structure/thefork-b2b-reservation-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/thefork-b2b-context.jsonld
-      - type: Example
+      - type: Examples
         url: examples/thefork-b2b-create-reservation-example.json
-      - type: Example
+      - type: Examples
         url: examples/thefork-b2b-get-reservation-example.json
-      - type: Example
+      - type: Examples
         url: examples/thefork-b2b-find-customer-by-phone-example.json
-      - type: Example
+      - type: Examples
         url: examples/thefork-b2b-get-review-example.json
   - aid: thefork:pos-api
     name: TheFork POS API
@@ -96,7 +96,7 @@ apis:
         url: json-schema/thefork-pos-order-schema.json
       - type: JSONStructure
         url: json-structure/thefork-pos-order-structure.json
-      - type: Example
+      - type: Examples
         url: examples/thefork-pos-create-order-example.json
 common:
   - type: Website
@@ -107,7 +107,7 @@ common:
     url: https://docs.thefork.io/
   - type: GettingStarted
     url: https://docs.thefork.io/getting-started
-  - type: SignUp
+  - type: Signup
     url: https://docs.thefork.io/preliminary-steps
   - type: TermsOfService
     url: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
@@ -119,7 +119,7 @@ common:
     url: rules/thefork-rules.yml
   - type: Vocabulary
     url: vocabulary/thefork-vocabulary.yml
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/thefork-context.jsonld
   - type: Plans
     url: plans/thefork-plans-pricing.yml
