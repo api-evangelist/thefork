@@ -1,0 +1,37 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/thefork-b2b-openapi.yml, openapi/thefork-pos-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: OAuth2ClientCredentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.thefork.io/oauth/token
+    scopes: 0
+  description: Auth0 OAuth 2.0 client credentials flow. Exchange client_id and client_secret
+    for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io.
+    Tokens expire after 8600 seconds.
+  sources:
+  - openapi/thefork-b2b-openapi.yml
+- name: ApiKey
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  description: API key issued by TheFork for POS API v1.
+  sources:
+  - openapi/thefork-pos-openapi.yml
+- name: BearerToken
+  type: http
+  scheme: bearer
+  description: Bearer token presented by TheFork on calls to the POS provider.
+  sources:
+  - openapi/thefork-pos-openapi.yml
