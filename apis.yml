@@ -99,6 +99,10 @@ apis:
       - type: Examples
         url: examples/thefork-pos-create-order-example.json
 common:
+  - type: Authentication
+    url: authentication/thefork-authentication.yml
+  - type: OAuthScopes
+    url: scopes/thefork-scopes.yml
   - type: Website
     url: https://www.thefork.com
   - type: Documentation
