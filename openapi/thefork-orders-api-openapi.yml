@@ -1,20 +1,7 @@
 openapi: 3.0.3
 info:
-  title: TheFork POS API
-  description: >-
-    TheFork POS API enables point-of-sale providers to integrate their systems
-    with TheFork Management (TFM) platform and synchronize reservations and
-    orders. The integration is webhook-driven: when a diner is marked ARRIVED or
-    SEATED on TFM, TheFork calls the POS provider's configured endpoint (for
-    example a receipt opening URL) to open an order; staff then add items on the
-    POS, and on payment the POS closes the order and sends final details such as
-    total amount and currency back to TheFork, which marks the reservation as
-    LEFT. The same flow applies to walk-in diners, where the reservation is
-    created in TFM on arrival. Requests TheFork sends to the POS carry a bearer
-    token and a CustomerId header identifying the restaurant. POS provider
-    requests to TheFork authenticate with an API key in the X-Api-Key header.
-    Specifications are derived from the public developer portal at
-    https://docs.thefork.io.
+  title: TheFork B2B Customers Orders API
+  description: TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.
   version: v1
   contact:
     name: TheFork Integrations
@@ -22,8 +9,10 @@ info:
     url: https://docs.thefork.io/
   termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
 servers:
-- url: https://api.thefork.io/pos/v1
-  description: Production (POS provider callbacks to TheFork)
+- url: https://api.thefork.io/manager/v1
+  description: Production
+security:
+- OAuth2ClientCredentials: []
 tags:
 - name: Orders
   description: Open and close point-of-sale orders tied to reservations.
@@ -33,11 +22,7 @@ paths:
       tags:
       - Orders
       summary: Open Order
-      description: >-
-        Called by TheFork to the POS provider's configured receipt opening URL
-        when a reservation is seated, instructing the POS to open an order for
-        the reservation. The POS responds with 204 on success; TheFork may retry
-        on 5xx errors.
+      description: Called by TheFork to the POS provider's configured receipt opening URL when a reservation is seated, instructing the POS to open an order for the reservation. The POS responds with 204 on success; TheFork may retry on 5xx errors.
       operationId: openOrder
       parameters:
       - name: CustomerId
@@ -83,9 +68,7 @@ paths:
       tags:
       - Orders
       summary: Close Order
-      description: >-
-        Close an order on payment and send the final order details (total amount
-        and currency) back to TheFork so the reservation can be marked LEFT.
+      description: Close an order on payment and send the final order details (total amount and currency) back to TheFork so the reservation can be marked LEFT.
       operationId: closeOrder
       parameters:
       - name: orderId
@@ -123,36 +106,28 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  securitySchemes:
-    ApiKey:
-      type: apiKey
-      in: header
-      name: X-Api-Key
-      description: API key issued by TheFork for POS API v1.
-    BearerToken:
-      type: http
-      scheme: bearer
-      description: Bearer token presented by TheFork on calls to the POS provider.
-  responses:
-    Unauthorized:
-      description: Invalid API key or bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Offer:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        discount:
+          type: number
+        price:
+          type: integer
+          description: Price in the smallest currency unit (cents).
+    ReservationStatus:
+      type: string
+      enum:
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - NO_SHOW
+      - REQUESTED
+      - REFUSED
     Order:
       type: object
       required:
@@ -193,26 +168,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Table'
-    OrderClose:
+    Table:
       type: object
-      required:
-      - total
       properties:
-        total:
-          $ref: '#/components/schemas/Money'
-        closedAt:
+        name:
           type: string
-          format: date-time
-          description: ISO 8601 timestamp when the order was closed.
-    ReservationStatus:
-      type: string
-      enum:
-      - RECORDED
-      - CONFIRMED
-      - CANCELED
-      - NO_SHOW
-      - REQUESTED
-      - REFUSED
+          example: T12
+        areaName:
+          type: string
+          example: Terrace
     Customer:
       type: object
       properties:
@@ -230,6 +194,17 @@ components:
           type: array
           items:
             type: string
+    OrderClose:
+      type: object
+      required:
+      - total
+      properties:
+        total:
+          $ref: '#/components/schemas/Money'
+        closedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the order was closed.
     Money:
       type: object
       description: A monetary amount with currency.
@@ -242,27 +217,6 @@ components:
           type: string
           description: ISO 4217 currency code.
           example: EUR
-    Offer:
-      type: object
-      properties:
-        type:
-          type: string
-        name:
-          type: string
-        discount:
-          type: number
-        price:
-          type: integer
-          description: Price in the smallest currency unit (cents).
-    Table:
-      type: object
-      properties:
-        name:
-          type: string
-          example: T12
-        areaName:
-          type: string
-          example: Terrace
     Error:
       type: object
       properties:
@@ -270,3 +224,30 @@ components:
           type: integer
         message:
           type: string
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2ClientCredentials:
+      type: oauth2
+      description: Auth0 OAuth 2.0 client credentials flow. Exchange client_id and client_secret for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io. Tokens expire after 8600 seconds.
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.thefork.io/oauth/token
+          scopes: {}

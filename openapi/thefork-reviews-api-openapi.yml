@@ -1,0 +1,109 @@
+openapi: 3.0.3
+info:
+  title: TheFork B2B Customers Reviews API
+  description: TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.
+  version: v1
+  contact:
+    name: TheFork Integrations
+    email: integrations@thefork.com
+    url: https://docs.thefork.io/
+  termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+servers:
+- url: https://api.thefork.io/manager/v1
+  description: Production
+security:
+- OAuth2ClientCredentials: []
+tags:
+- name: Reviews
+  description: Retrieve guest review details.
+paths:
+  /reviews/{id}:
+    get:
+      tags:
+      - Reviews
+      summary: Get Review Details
+      description: Retrieve the review details for a given review UUID.
+      operationId: getReview
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Review UUID.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Review details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+              examples:
+                review:
+                  summary: Review details
+                  value:
+                    id: 3f1d9a44-7c2e-4b6a-9f10-2a5e8b0c1d23
+                    restaurantId: rst_10293
+                    reservationId: rsv_8f3c2a1b
+                    rating: 9.2
+                    comment: Excellent service and food.
+                    createdAt: '2026-06-21T10:00:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 3f1d9a44-7c2e-4b6a-9f10-2a5e8b0c1d23
+        restaurantId:
+          type: string
+          example: rst_10293
+        reservationId:
+          type: string
+          example: rsv_8f3c2a1b
+        rating:
+          type: number
+          description: Overall rating score.
+          example: 9.2
+        comment:
+          type: string
+          example: Excellent service and food.
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-06-21T10:00:00Z'
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    OAuth2ClientCredentials:
+      type: oauth2
+      description: Auth0 OAuth 2.0 client credentials flow. Exchange client_id and client_secret for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io. Tokens expire after 8600 seconds.
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.thefork.io/oauth/token
+          scopes: {}

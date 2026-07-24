@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: TheFork B2B Customers API
+  description: TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.
+  version: v1
+  contact:
+    name: TheFork Integrations
+    email: integrations@thefork.com
+    url: https://docs.thefork.io/
+  termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+servers:
+- url: https://api.thefork.io/manager/v1
+  description: Production
+security:
+- OAuth2ClientCredentials: []
+tags:
+- name: Customers
+  description: Look up customer and guest profile data.
+paths:
+  /restaurants/{id}/customers/phone/{phoneNumber}:
+    get:
+      tags:
+      - Customers
+      summary: Find Customer By Phone Number
+      description: Get the customer details for a given customer phone number.
+      operationId: findCustomerByPhone
+      parameters:
+      - $ref: '#/components/parameters/RestaurantId'
+      - name: phoneNumber
+        in: path
+        required: true
+        description: Customer phone number in international format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Customer details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+              examples:
+                found:
+                  summary: Customer profile
+                  value:
+                    id: cus_55ab
+                    firstName: Camille
+                    lastName: Durand
+                    email: camille.durand@example.com
+                    phoneNumber: '+33612345678'
+                    allergies:
+                    - peanuts
+                    dietaryRestrictions:
+                    - vegetarian
+                    seatingPreferences:
+                    - terrace
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers:
+    get:
+      tags:
+      - Customers
+      summary: List Customers
+      description: Retrieve customer profiles associated with the authenticated client.
+      operationId: listCustomers
+      responses:
+        '200':
+          description: A list of customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          example: cus_55ab
+        firstName:
+          type: string
+          example: Camille
+        lastName:
+          type: string
+          example: Durand
+        email:
+          type: string
+          format: email
+          example: camille.durand@example.com
+        phoneNumber:
+          type: string
+          example: '+33612345678'
+        allergies:
+          type: array
+          description: Known allergies and intolerances.
+          items:
+            type: string
+          example:
+          - peanuts
+          - shellfish
+        dietaryRestrictions:
+          type: array
+          items:
+            type: string
+          example:
+          - vegetarian
+        seatingPreferences:
+          type: array
+          description: Preferred seating areas or arrangements.
+          items:
+            type: string
+          example:
+          - terrace
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+  parameters:
+    RestaurantId:
+      name: id
+      in: path
+      required: true
+      description: The restaurant identifier.
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2ClientCredentials:
+      type: oauth2
+      description: Auth0 OAuth 2.0 client credentials flow. Exchange client_id and client_secret for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io. Tokens expire after 8600 seconds.
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.thefork.io/oauth/token
+          scopes: {}
