@@ -9,7 +9,20 @@ description: >-
   personalized guest data including allergies, dietary restrictions, and seating preferences. Offerings include a B2B
   API for restaurants and a POS API for point-of-sale providers.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/thefork.png
 tags:
   - Restaurant
   - Reservations
@@ -22,83 +35,205 @@ created: '2026-06-02'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-  - aid: thefork:rest-api
-    name: TheFork B2B API
-    description: >-
-      TheFork B2B API lets restaurants and groups integrate with TheFork Management platform. It supports designing
-      custom booking flows, creating reservations with meal date, party size, and customer data, presenting preset
-      menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and
-      retrieving guest reviews. The API is fronted by a Kong gateway and documented with OpenAPI 3. Authentication uses
-      the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token.
-    humanURL: https://docs.thefork.io/B2B-API/introduction
-    baseURL: https://api.thefork.io
-    tags:
-      - Reservations
-      - Booking
-      - Menus
-      - Guests
-      - Reviews
-    properties:
-      - type: Documentation
-        url: https://docs.thefork.io/B2B-API/introduction
-      - type: APIReference
-        url: https://docs.thefork.io/B2B-API/API%20specifications/post-v-1-restaurants-id-reservations
-      - type: GettingStarted
-        url: https://docs.thefork.io/getting-started
-      - type: Authentication
-        url: https://docs.thefork.io/B2B-API/authentication
-      - type: OpenAPI
-        url: openapi/thefork-b2b-openapi.yml
-      - type: JSONSchema
-        url: json-schema/thefork-b2b-reservation-schema.json
-      - type: JSONSchema
-        url: json-schema/thefork-b2b-customer-schema.json
-      - type: JSONSchema
-        url: json-schema/thefork-b2b-review-schema.json
-      - type: JSONStructure
-        url: json-structure/thefork-b2b-reservation-structure.json
-      - type: JSONLD
-        url: json-ld/thefork-b2b-context.jsonld
-      - type: Examples
-        url: examples/thefork-b2b-create-reservation-example.json
-      - type: Examples
-        url: examples/thefork-b2b-get-reservation-example.json
-      - type: Examples
-        url: examples/thefork-b2b-find-customer-by-phone-example.json
-      - type: Examples
-        url: examples/thefork-b2b-get-review-example.json
-  - aid: thefork:pos-api
-    name: TheFork POS API
-    description: >-
-      TheFork POS API enables point-of-sale providers to integrate their systems with TheFork Management platform,
-      synchronizing reservations and restaurant operations data. TheFork calls the POS provider's configured webhook
-      endpoints (for example a receipt opening URL) to open orders when a diner is seated, then receives final order
-      details such as total amount and currency back, marking reservations as left when payment completes.
-      Authentication uses an API key supplied in the X-Api-Key header for requests to TheFork, and a bearer token for
-      callbacks.
-    humanURL: https://docs.thefork.io/POS-API/how-it-works
-    tags:
-      - Point Of Sale
-      - Reservations
-      - Orders
-    properties:
-      - type: Documentation
-        url: https://docs.thefork.io/POS-API/how-it-works
-      - type: APIReference
-        url: https://docs.thefork.io/POS-API/Flow/create-order
-      - type: GettingStarted
-        url: https://docs.thefork.io/getting-started
-      - type: Authentication
-        url: https://docs.thefork.io/preliminary-steps
-      - type: OpenAPI
-        url: openapi/thefork-pos-openapi.yml
-      - type: JSONSchema
-        url: json-schema/thefork-pos-order-schema.json
-      - type: JSONStructure
-        url: json-structure/thefork-pos-order-structure.json
-      - type: Examples
-        url: examples/thefork-pos-create-order-example.json
+- aid: thefork:thefork-customers-api
+  name: TheFork Customers API
+  description: Look up customer and guest profile data.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: >-
+      https://docs.thefork.io/B2B-API/API%20specifications/post-v-1-restaurants-id-reservations
+  - type: GettingStarted
+    url: https://docs.thefork.io/getting-started
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-reservation-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-review-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-b2b-reservation-structure.json
+  - type: JSONLD
+    url: json-ld/thefork-b2b-context.jsonld
+  - type: Examples
+    url: examples/thefork-b2b-create-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-find-customer-by-phone-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-review-example.json
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+  - type: Authentication
+    url: https://docs.thefork.io/preliminary-steps
+  - type: JSONSchema
+    url: json-schema/thefork-pos-order-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-pos-order-structure.json
+  - type: Examples
+    url: examples/thefork-pos-create-order-example.json
+- aid: thefork:thefork-orders-api
+  name: TheFork Orders API
+  description: Open and close point-of-sale orders tied to reservations.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: >-
+      https://docs.thefork.io/B2B-API/API%20specifications/post-v-1-restaurants-id-reservations
+  - type: GettingStarted
+    url: https://docs.thefork.io/getting-started
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-reservation-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-review-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-b2b-reservation-structure.json
+  - type: JSONLD
+    url: json-ld/thefork-b2b-context.jsonld
+  - type: Examples
+    url: examples/thefork-b2b-create-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-find-customer-by-phone-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-review-example.json
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+  - type: Authentication
+    url: https://docs.thefork.io/preliminary-steps
+  - type: JSONSchema
+    url: json-schema/thefork-pos-order-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-pos-order-structure.json
+  - type: Examples
+    url: examples/thefork-pos-create-order-example.json
+- aid: thefork:thefork-reservations-api
+  name: TheFork Reservations API
+  description: Create, retrieve, and update reservations.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Reservations
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-reservations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: >-
+      https://docs.thefork.io/B2B-API/API%20specifications/post-v-1-restaurants-id-reservations
+  - type: GettingStarted
+    url: https://docs.thefork.io/getting-started
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-reservation-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-review-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-b2b-reservation-structure.json
+  - type: JSONLD
+    url: json-ld/thefork-b2b-context.jsonld
+  - type: Examples
+    url: examples/thefork-b2b-create-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-find-customer-by-phone-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-review-example.json
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+  - type: Authentication
+    url: https://docs.thefork.io/preliminary-steps
+  - type: JSONSchema
+    url: json-schema/thefork-pos-order-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-pos-order-structure.json
+  - type: Examples
+    url: examples/thefork-pos-create-order-example.json
+- aid: thefork:thefork-reviews-api
+  name: TheFork Reviews API
+  description: Retrieve guest review details.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: >-
+      https://docs.thefork.io/B2B-API/API%20specifications/post-v-1-restaurants-id-reservations
+  - type: GettingStarted
+    url: https://docs.thefork.io/getting-started
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-reservation-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/thefork-b2b-review-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-b2b-reservation-structure.json
+  - type: JSONLD
+    url: json-ld/thefork-b2b-context.jsonld
+  - type: Examples
+    url: examples/thefork-b2b-create-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-reservation-example.json
+  - type: Examples
+    url: examples/thefork-b2b-find-customer-by-phone-example.json
+  - type: Examples
+    url: examples/thefork-b2b-get-review-example.json
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+  - type: Authentication
+    url: https://docs.thefork.io/preliminary-steps
+  - type: JSONSchema
+    url: json-schema/thefork-pos-order-schema.json
+  - type: JSONStructure
+    url: json-structure/thefork-pos-order-structure.json
+  - type: Examples
+    url: examples/thefork-pos-create-order-example.json
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/thefork/overview
   - type: AgenticAccess
     url: agentic-access/thefork-agentic-access.yml
   - type: DomainSecurity
