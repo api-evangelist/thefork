@@ -1,0 +1,272 @@
+openapi: 3.0.3
+info:
+  title: TheFork POS API
+  description: >-
+    TheFork POS API enables point-of-sale providers to integrate their systems
+    with TheFork Management (TFM) platform and synchronize reservations and
+    orders. The integration is webhook-driven: when a diner is marked ARRIVED or
+    SEATED on TFM, TheFork calls the POS provider's configured endpoint (for
+    example a receipt opening URL) to open an order; staff then add items on the
+    POS, and on payment the POS closes the order and sends final details such as
+    total amount and currency back to TheFork, which marks the reservation as
+    LEFT. The same flow applies to walk-in diners, where the reservation is
+    created in TFM on arrival. Requests TheFork sends to the POS carry a bearer
+    token and a CustomerId header identifying the restaurant. POS provider
+    requests to TheFork authenticate with an API key in the X-Api-Key header.
+    Specifications are derived from the public developer portal at
+    https://docs.thefork.io.
+  version: v1
+  contact:
+    name: TheFork Integrations
+    email: integrations@thefork.com
+    url: https://docs.thefork.io/
+  termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+servers:
+- url: https://api.thefork.io/pos/v1
+  description: Production (POS provider callbacks to TheFork)
+tags:
+- name: Orders
+  description: Open and close point-of-sale orders tied to reservations.
+paths:
+  /orders:
+    post:
+      tags:
+      - Orders
+      summary: Open Order
+      description: >-
+        Called by TheFork to the POS provider's configured receipt opening URL
+        when a reservation is seated, instructing the POS to open an order for
+        the reservation. The POS responds with 204 on success; TheFork may retry
+        on 5xx errors.
+      operationId: openOrder
+      parameters:
+      - name: CustomerId
+        in: header
+        required: true
+        description: The restaurant's UUID identifier.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+            examples:
+              openOrder:
+                summary: Open order for a seated reservation
+                value:
+                  orderId: 2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f
+                  createdAt: '2026-06-20T20:35:00Z'
+                  reservationStatus: CONFIRMED
+                  partySize: 4
+                  startTime: '2026-06-20T20:30:00Z'
+                  customer:
+                    id: cus_55ab
+                    firstName: Camille
+                    lastName: Durand
+                    allergies:
+                    - peanuts
+                  tables:
+                  - name: T12
+                    areaName: Terrace
+      responses:
+        '204':
+          description: Order accepted. Empty body.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /orders/{orderId}/close:
+    post:
+      tags:
+      - Orders
+      summary: Close Order
+      description: >-
+        Close an order on payment and send the final order details (total amount
+        and currency) back to TheFork so the reservation can be marked LEFT.
+      operationId: closeOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        description: TheFork's UUID for the order.
+        schema:
+          type: string
+          format: uuid
+      - name: X-Api-Key
+        in: header
+        required: true
+        description: POS provider API key.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderClose'
+            examples:
+              closeOrder:
+                summary: Close order on payment
+                value:
+                  total:
+                    amount: 12500
+                    currency: EUR
+                  closedAt: '2026-06-20T22:10:00Z'
+      responses:
+        '204':
+          description: Order closed. Empty body.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key issued by TheFork for POS API v1.
+    BearerToken:
+      type: http
+      scheme: bearer
+      description: Bearer token presented by TheFork on calls to the POS provider.
+  responses:
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Order:
+      type: object
+      required:
+      - orderId
+      - createdAt
+      - reservationStatus
+      - partySize
+      - startTime
+      properties:
+        orderId:
+          type: string
+          format: uuid
+          description: TheFork's UUID for the order.
+          example: 2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f
+        createdAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the order was opened.
+          example: '2026-06-20T20:35:00Z'
+        reservationStatus:
+          $ref: '#/components/schemas/ReservationStatus'
+        partySize:
+          type: integer
+          description: Number of guests.
+          example: 4
+        startTime:
+          type: string
+          format: date-time
+          description: Scheduled meal start time (ISO 8601).
+          example: '2026-06-20T20:30:00Z'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        prepayment:
+          $ref: '#/components/schemas/Money'
+        offer:
+          $ref: '#/components/schemas/Offer'
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+    OrderClose:
+      type: object
+      required:
+      - total
+      properties:
+        total:
+          $ref: '#/components/schemas/Money'
+        closedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the order was closed.
+    ReservationStatus:
+      type: string
+      enum:
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - NO_SHOW
+      - REQUESTED
+      - REFUSED
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        allergies:
+          type: array
+          items:
+            type: string
+        dietaryRestrictions:
+          type: array
+          items:
+            type: string
+    Money:
+      type: object
+      description: A monetary amount with currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest currency unit (cents).
+          example: 12500
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    Offer:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        discount:
+          type: number
+        price:
+          type: integer
+          description: Price in the smallest currency unit (cents).
+    Table:
+      type: object
+      properties:
+        name:
+          type: string
+          example: T12
+        areaName:
+          type: string
+          example: Terrace
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string

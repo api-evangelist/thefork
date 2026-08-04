@@ -1,0 +1,512 @@
+openapi: 3.0.3
+info:
+  title: TheFork B2B API
+  description: >-
+    TheFork B2B API lets restaurants and groups integrate with TheFork
+    Management (TFM) platform. It supports designing custom booking flows,
+    creating and managing reservations with meal date, party size, and customer
+    data, presenting preset menus, accessing personalized guest data such as
+    allergies, dietary restrictions, and seating preferences, and retrieving
+    guest reviews. The API is fronted by a Kong gateway and uses a single API
+    version across all endpoints; breaking changes introduce a new version with
+    a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0
+    client credentials flow to obtain a bearer access token (audience
+    https://api.thefork.io). Specifications are derived from the public
+    developer portal at https://docs.thefork.io.
+  version: v1
+  contact:
+    name: TheFork Integrations
+    email: integrations@thefork.com
+    url: https://docs.thefork.io/
+  termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+servers:
+- url: https://api.thefork.io/manager/v1
+  description: Production
+tags:
+- name: Reservations
+  description: Create, retrieve, and update reservations.
+- name: Customers
+  description: Look up customer and guest profile data.
+- name: Reviews
+  description: Retrieve guest review details.
+paths:
+  /restaurants/{id}/reservations:
+    post:
+      tags:
+      - Reservations
+      summary: Create Reservation
+      description: >-
+        Create a reservation for a given restaurant, with all details such as
+        meal date, party size, and customer data.
+      operationId: createReservation
+      parameters:
+      - $ref: '#/components/parameters/RestaurantId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationCreateRequest'
+            examples:
+              standard:
+                summary: Create a dinner reservation
+                value:
+                  mealDate: '2026-06-20T20:30:00Z'
+                  partySize: 4
+                  customer:
+                    firstName: Camille
+                    lastName: Durand
+                    email: camille.durand@example.com
+                    phoneNumber: '+33612345678'
+                  offerId: off_summer25
+                  menuId: menu_tasting
+                  notes: Window table if possible.
+      responses:
+        '200':
+          description: Reservation created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+              examples:
+                created:
+                  summary: Created reservation
+                  value:
+                    id: rsv_8f3c2a1b
+                    restaurantId: rst_10293
+                    status: CONFIRMED
+                    mealDate: '2026-06-20T20:30:00Z'
+                    partySize: 4
+                    customer:
+                      id: cus_55ab
+                      firstName: Camille
+                      lastName: Durand
+                    createdAt: '2026-06-03T09:15:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+  /reservations/{id}:
+    get:
+      tags:
+      - Reservations
+      summary: Get Reservation
+      description: Retrieve the reservation details for a given reservation id.
+      operationId: getReservation
+      parameters:
+      - $ref: '#/components/parameters/ReservationId'
+      responses:
+        '200':
+          description: Reservation details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+              examples:
+                found:
+                  summary: Reservation details
+                  value:
+                    id: rsv_8f3c2a1b
+                    restaurantId: rst_10293
+                    status: SEATED
+                    mealDate: '2026-06-20T20:30:00Z'
+                    partySize: 4
+                    customer:
+                      id: cus_55ab
+                      firstName: Camille
+                      lastName: Durand
+                    createdAt: '2026-06-03T09:15:00Z'
+                    updatedAt: '2026-06-20T20:35:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags:
+      - Reservations
+      summary: Update Reservation
+      description: Update a reservation meal date and party size.
+      operationId: updateReservation
+      parameters:
+      - $ref: '#/components/parameters/ReservationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationUpdateRequest'
+            examples:
+              reschedule:
+                summary: Reschedule and resize
+                value:
+                  mealDate: '2026-06-20T21:00:00Z'
+                  partySize: 5
+      responses:
+        '200':
+          description: Reservation updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /restaurants/{id}/customers/phone/{phoneNumber}:
+    get:
+      tags:
+      - Customers
+      summary: Find Customer By Phone Number
+      description: Get the customer details for a given customer phone number.
+      operationId: findCustomerByPhone
+      parameters:
+      - $ref: '#/components/parameters/RestaurantId'
+      - name: phoneNumber
+        in: path
+        required: true
+        description: Customer phone number in international format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Customer details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+              examples:
+                found:
+                  summary: Customer profile
+                  value:
+                    id: cus_55ab
+                    firstName: Camille
+                    lastName: Durand
+                    email: camille.durand@example.com
+                    phoneNumber: '+33612345678'
+                    allergies:
+                    - peanuts
+                    dietaryRestrictions:
+                    - vegetarian
+                    seatingPreferences:
+                    - terrace
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers:
+    get:
+      tags:
+      - Customers
+      summary: List Customers
+      description: Retrieve customer profiles associated with the authenticated client.
+      operationId: listCustomers
+      responses:
+        '200':
+          description: A list of customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reviews/{id}:
+    get:
+      tags:
+      - Reviews
+      summary: Get Review Details
+      description: Retrieve the review details for a given review UUID.
+      operationId: getReview
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Review UUID.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Review details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+              examples:
+                review:
+                  summary: Review details
+                  value:
+                    id: 3f1d9a44-7c2e-4b6a-9f10-2a5e8b0c1d23
+                    restaurantId: rst_10293
+                    reservationId: rsv_8f3c2a1b
+                    rating: 9.2
+                    comment: Excellent service and food.
+                    createdAt: '2026-06-21T10:00:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    OAuth2ClientCredentials:
+      type: oauth2
+      description: >-
+        Auth0 OAuth 2.0 client credentials flow. Exchange client_id and
+        client_secret for a bearer token at https://auth.thefork.io/oauth/token
+        with audience https://api.thefork.io. Tokens expire after 8600 seconds.
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.thefork.io/oauth/token
+          scopes: {}
+  parameters:
+    RestaurantId:
+      name: id
+      in: path
+      required: true
+      description: The restaurant identifier.
+      schema:
+        type: string
+    ReservationId:
+      name: id
+      in: path
+      required: true
+      description: The reservation identifier.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: The request conflicts with the current state (e.g. unavailable slot).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ReservationCreateRequest:
+      type: object
+      required:
+      - mealDate
+      - partySize
+      - customer
+      properties:
+        mealDate:
+          type: string
+          format: date-time
+          description: The date and time of the meal (ISO 8601).
+          example: '2026-06-20T20:30:00Z'
+        partySize:
+          type: integer
+          minimum: 1
+          description: Number of guests.
+          example: 4
+        customer:
+          $ref: '#/components/schemas/CustomerInput'
+        offerId:
+          type: string
+          description: Identifier of an applied offer, if any.
+          example: off_summer25
+        menuId:
+          type: string
+          description: Identifier of a selected preset menu, if any.
+          example: menu_tasting
+        notes:
+          type: string
+          description: Free-text note attached to the reservation.
+          example: Window table if possible.
+    ReservationUpdateRequest:
+      type: object
+      description: Fields that can be changed on an existing reservation.
+      properties:
+        mealDate:
+          type: string
+          format: date-time
+          description: Updated meal date and time (ISO 8601).
+          example: '2026-06-20T21:00:00Z'
+        partySize:
+          type: integer
+          minimum: 1
+          description: Updated number of guests.
+          example: 5
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Reservation identifier.
+          example: rsv_8f3c2a1b
+        restaurantId:
+          type: string
+          description: Identifier of the restaurant.
+          example: rst_10293
+        status:
+          $ref: '#/components/schemas/ReservationStatus'
+        mealDate:
+          type: string
+          format: date-time
+          description: The date and time of the meal (ISO 8601).
+          example: '2026-06-20T20:30:00Z'
+        partySize:
+          type: integer
+          description: Number of guests.
+          example: 4
+        customer:
+          $ref: '#/components/schemas/Customer'
+        offer:
+          $ref: '#/components/schemas/Offer'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-06-03T09:15:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-06-03T09:15:00Z'
+    ReservationStatus:
+      type: string
+      description: Lifecycle status of a reservation.
+      enum:
+      - REQUESTED
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - REFUSED
+      - NO_SHOW
+      - ARRIVED
+      - SEATED
+      - LEFT
+    CustomerInput:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        firstName:
+          type: string
+          example: Camille
+        lastName:
+          type: string
+          example: Durand
+        email:
+          type: string
+          format: email
+          example: camille.durand@example.com
+        phoneNumber:
+          type: string
+          description: Phone number in international format.
+          example: '+33612345678'
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          example: cus_55ab
+        firstName:
+          type: string
+          example: Camille
+        lastName:
+          type: string
+          example: Durand
+        email:
+          type: string
+          format: email
+          example: camille.durand@example.com
+        phoneNumber:
+          type: string
+          example: '+33612345678'
+        allergies:
+          type: array
+          description: Known allergies and intolerances.
+          items:
+            type: string
+          example:
+          - peanuts
+          - shellfish
+        dietaryRestrictions:
+          type: array
+          items:
+            type: string
+          example:
+          - vegetarian
+        seatingPreferences:
+          type: array
+          description: Preferred seating areas or arrangements.
+          items:
+            type: string
+          example:
+          - terrace
+    Offer:
+      type: object
+      properties:
+        type:
+          type: string
+          example: PERCENT_DISCOUNT
+        name:
+          type: string
+          example: Summer 2026
+        discount:
+          type: number
+          description: Discount applied, where relevant.
+          example: 25
+        price:
+          type: integer
+          description: Price in the smallest currency unit (cents).
+          example: 4500
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 3f1d9a44-7c2e-4b6a-9f10-2a5e8b0c1d23
+        restaurantId:
+          type: string
+          example: rst_10293
+        reservationId:
+          type: string
+          example: rsv_8f3c2a1b
+        rating:
+          type: number
+          description: Overall rating score.
+          example: 9.2
+        comment:
+          type: string
+          example: Excellent service and food.
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-06-21T10:00:00Z'
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+security:
+- OAuth2ClientCredentials: []

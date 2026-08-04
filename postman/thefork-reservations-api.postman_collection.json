@@ -1,0 +1,936 @@
+{
+  "info": {
+    "_postman_id": "ae0c4a83-1b68-4658-a9b0-9834c80d0ebd",
+    "name": "TheFork B2B Customers Reservations API",
+    "description": "TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.\n\nContact Support:\n Name: TheFork Integrations\n Email: integrations@thefork.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:43.000Z",
+    "updatedAt": "2026-07-28T03:10:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ae0c4a83-1b68-4658-a9b0-9834c80d0ebd"
+  },
+  "item": [
+    {
+      "name": "restaurants",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "reservations",
+              "item": [
+                {
+                  "name": "Create Reservation",
+                  "id": "2958d9ea-d4e7-4adb-b829-027f2439ca25",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\"\n  },\n  \"offerId\": \"<string>\",\n  \"menuId\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/restaurants/:id/reservations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "restaurants",
+                        ":id",
+                        "reservations"
+                      ],
+                      "variable": [
+                        {
+                          "id": "31a1aebf-f8ef-4f1c-939f-d5b9a290c810",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) The restaurant identifier."
+                        }
+                      ]
+                    },
+                    "description": "Create a reservation for a given restaurant, with all details such as meal date, party size, and customer data."
+                  },
+                  "response": [
+                    {
+                      "id": "dfbf314b-237f-43ec-8b9d-965d74352e7e",
+                      "name": "Reservation created.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\"\n  },\n  \"offerId\": \"<string>\",\n  \"menuId\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/restaurants/:id/reservations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "restaurants",
+                            ":id",
+                            "reservations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"restaurantId\": \"<string>\",\n  \"status\": \"REFUSED\",\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"seatingPreferences\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:10:44.000Z",
+                      "updatedAt": "2026-07-28T03:10:44.000Z",
+                      "uid": "35240-dfbf314b-237f-43ec-8b9d-965d74352e7e"
+                    },
+                    {
+                      "id": "3752eb22-ba18-4a2a-8524-fe5b6ad4d06f",
+                      "name": "Invalid API key or bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\"\n  },\n  \"offerId\": \"<string>\",\n  \"menuId\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/restaurants/:id/reservations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "restaurants",
+                            ":id",
+                            "reservations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:44.000Z",
+                      "updatedAt": "2026-07-28T03:10:44.000Z",
+                      "uid": "35240-3752eb22-ba18-4a2a-8524-fe5b6ad4d06f"
+                    },
+                    {
+                      "id": "959fc7f5-0778-4e6f-8b14-bda3b2213c06",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\"\n  },\n  \"offerId\": \"<string>\",\n  \"menuId\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/restaurants/:id/reservations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "restaurants",
+                            ":id",
+                            "reservations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:44.000Z",
+                      "updatedAt": "2026-07-28T03:10:44.000Z",
+                      "uid": "35240-959fc7f5-0778-4e6f-8b14-bda3b2213c06"
+                    },
+                    {
+                      "id": "2b2d2ad5-4d32-4b37-916f-c16edde702b1",
+                      "name": "The request conflicts with the current state (e.g. unavailable slot).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\"\n  },\n  \"offerId\": \"<string>\",\n  \"menuId\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/restaurants/:id/reservations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "restaurants",
+                            ":id",
+                            "reservations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:44.000Z",
+                      "updatedAt": "2026-07-28T03:10:44.000Z",
+                      "uid": "35240-2b2d2ad5-4d32-4b37-916f-c16edde702b1"
+                    },
+                    {
+                      "id": "ced76871-ccee-4b52-b335-b9eeffd5c867",
+                      "name": "Rate limit exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\"\n  },\n  \"offerId\": \"<string>\",\n  \"menuId\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/restaurants/:id/reservations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "restaurants",
+                            ":id",
+                            "reservations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:44.000Z",
+                      "updatedAt": "2026-07-28T03:10:44.000Z",
+                      "uid": "35240-ced76871-ccee-4b52-b335-b9eeffd5c867"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:10:43.000Z",
+                  "updatedAt": "2026-07-28T03:10:43.000Z",
+                  "uid": "35240-2958d9ea-d4e7-4adb-b829-027f2439ca25"
+                }
+              ],
+              "id": "bb6bf8f2-761b-4de8-93a8-1e3c9c955595",
+              "createdAt": "2026-07-28T03:10:43.000Z",
+              "updatedAt": "2026-07-28T03:10:43.000Z",
+              "uid": "35240-bb6bf8f2-761b-4de8-93a8-1e3c9c955595"
+            }
+          ],
+          "id": "60097e85-1673-40df-b59a-630c57c44539",
+          "createdAt": "2026-07-28T03:10:43.000Z",
+          "updatedAt": "2026-07-28T03:10:43.000Z",
+          "uid": "35240-60097e85-1673-40df-b59a-630c57c44539"
+        }
+      ],
+      "id": "5a2121ab-ab0e-4b34-95d0-569597ad89d2",
+      "createdAt": "2026-07-28T03:10:43.000Z",
+      "updatedAt": "2026-07-28T03:10:43.000Z",
+      "uid": "35240-5a2121ab-ab0e-4b34-95d0-569597ad89d2"
+    },
+    {
+      "name": "reservations",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Reservation",
+              "id": "e2df1b75-f0e4-440c-8c25-9642306afaf5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reservations/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reservations",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "cb3c16e7-3962-4121-a288-7c87bb3508ef",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) The reservation identifier."
+                    }
+                  ]
+                },
+                "description": "Retrieve the reservation details for a given reservation id."
+              },
+              "response": [
+                {
+                  "id": "2ce4e626-2b60-4678-99d9-92f73f6945d7",
+                  "name": "Reservation details.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reservations/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"restaurantId\": \"<string>\",\n  \"status\": \"REFUSED\",\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"seatingPreferences\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:10:44.000Z",
+                  "updatedAt": "2026-07-28T03:10:44.000Z",
+                  "uid": "35240-2ce4e626-2b60-4678-99d9-92f73f6945d7"
+                },
+                {
+                  "id": "48ecb42c-50aa-4205-b828-39d281ffa8a2",
+                  "name": "Invalid API key or bearer token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reservations/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:10:44.000Z",
+                  "updatedAt": "2026-07-28T03:10:44.000Z",
+                  "uid": "35240-48ecb42c-50aa-4205-b828-39d281ffa8a2"
+                },
+                {
+                  "id": "98dff5b3-f5ed-4dc5-a3a2-ccfdc52f0c01",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reservations/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:10:44.000Z",
+                  "updatedAt": "2026-07-28T03:10:44.000Z",
+                  "uid": "35240-98dff5b3-f5ed-4dc5-a3a2-ccfdc52f0c01"
+                }
+              ],
+              "createdAt": "2026-07-28T03:10:43.000Z",
+              "updatedAt": "2026-07-28T03:10:43.000Z",
+              "uid": "35240-e2df1b75-f0e4-440c-8c25-9642306afaf5"
+            },
+            {
+              "name": "Update Reservation",
+              "id": "c1a5c915-deee-4202-9b9f-4ec6c638285c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reservations/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reservations",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "48dbe4a3-b21f-4c06-a7d0-f25425332648",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) The reservation identifier."
+                    }
+                  ]
+                },
+                "description": "Update a reservation meal date and party size."
+              },
+              "response": [
+                {
+                  "id": "4bfd0f31-7fd5-4d1c-a324-de309cc2e7d3",
+                  "name": "Reservation updated.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reservations/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"restaurantId\": \"<string>\",\n  \"status\": \"REFUSED\",\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"seatingPreferences\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:10:44.000Z",
+                  "updatedAt": "2026-07-28T03:10:44.000Z",
+                  "uid": "35240-4bfd0f31-7fd5-4d1c-a324-de309cc2e7d3"
+                },
+                {
+                  "id": "34d30913-c195-4474-8404-6507adcc49df",
+                  "name": "Invalid API key or bearer token.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reservations/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:10:44.000Z",
+                  "updatedAt": "2026-07-28T03:10:44.000Z",
+                  "uid": "35240-34d30913-c195-4474-8404-6507adcc49df"
+                },
+                {
+                  "id": "07078cd1-8eb6-4e06-8644-871a7689ae6c",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reservations/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:10:44.000Z",
+                  "updatedAt": "2026-07-28T03:10:44.000Z",
+                  "uid": "35240-07078cd1-8eb6-4e06-8644-871a7689ae6c"
+                },
+                {
+                  "id": "0726e2d5-7247-4d65-b144-2eff118bf5ff",
+                  "name": "The request conflicts with the current state (e.g. unavailable slot).",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"mealDate\": \"<dateTime>\",\n  \"partySize\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reservations/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:10:44.000Z",
+                  "updatedAt": "2026-07-28T03:10:44.000Z",
+                  "uid": "35240-0726e2d5-7247-4d65-b144-2eff118bf5ff"
+                }
+              ],
+              "createdAt": "2026-07-28T03:10:43.000Z",
+              "updatedAt": "2026-07-28T03:10:43.000Z",
+              "uid": "35240-c1a5c915-deee-4202-9b9f-4ec6c638285c"
+            }
+          ],
+          "id": "db449f33-d08c-46dc-96b5-49c0c6c806c5",
+          "createdAt": "2026-07-28T03:10:43.000Z",
+          "updatedAt": "2026-07-28T03:10:43.000Z",
+          "uid": "35240-db449f33-d08c-46dc-96b5-49c0c6c806c5"
+        }
+      ],
+      "id": "02f8b6e2-c8e5-44bb-8a57-65f759da2ca2",
+      "createdAt": "2026-07-28T03:10:43.000Z",
+      "updatedAt": "2026-07-28T03:10:43.000Z",
+      "uid": "35240-02f8b6e2-c8e5-44bb-8a57-65f759da2ca2"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.thefork.io/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.thefork.io/manager/v1"
+    }
+  ]
+}

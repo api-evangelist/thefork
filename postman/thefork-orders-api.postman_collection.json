@@ -1,0 +1,541 @@
+{
+  "info": {
+    "_postman_id": "14302c2d-591c-4876-b4b5-51e9916e5ddd",
+    "name": "TheFork B2B Customers Orders API",
+    "description": "TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.\n\nContact Support:\n Name: TheFork Integrations\n Email: integrations@thefork.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:42.000Z",
+    "updatedAt": "2026-07-28T03:10:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-14302c2d-591c-4876-b4b5-51e9916e5ddd"
+  },
+  "item": [
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "{orderId}",
+          "item": [
+            {
+              "name": "close",
+              "item": [
+                {
+                  "name": "Close Order",
+                  "id": "bcebf165-b04e-4cdf-bf90-7d0c3db0c814",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) POS provider API key.",
+                        "key": "X-Api-Key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"total\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"closedAt\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:orderId/close",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":orderId",
+                        "close"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a411cd89-480b-44b9-a105-924f34b1760e",
+                          "key": "orderId",
+                          "value": "<uuid>",
+                          "description": "(Required) TheFork's UUID for the order."
+                        }
+                      ]
+                    },
+                    "description": "Close an order on payment and send the final order details (total amount and currency) back to TheFork so the reservation can be marked LEFT."
+                  },
+                  "response": [
+                    {
+                      "id": "0bfdbe5c-2bbe-44c8-a582-15582c6ef023",
+                      "name": "Order closed. Empty body.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) POS provider API key.",
+                            "key": "X-Api-Key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"total\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"closedAt\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:orderId/close",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":orderId",
+                            "close"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:10:42.000Z",
+                      "updatedAt": "2026-07-28T03:10:42.000Z",
+                      "uid": "35240-0bfdbe5c-2bbe-44c8-a582-15582c6ef023"
+                    },
+                    {
+                      "id": "06514da7-5f4c-4aa1-a720-6fb8bc193e77",
+                      "name": "Invalid API key or bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) POS provider API key.",
+                            "key": "X-Api-Key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"total\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"closedAt\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:orderId/close",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":orderId",
+                            "close"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:42.000Z",
+                      "updatedAt": "2026-07-28T03:10:42.000Z",
+                      "uid": "35240-06514da7-5f4c-4aa1-a720-6fb8bc193e77"
+                    },
+                    {
+                      "id": "a8b0e9f1-30d6-45c5-9f5e-2a8f49da1356",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) POS provider API key.",
+                            "key": "X-Api-Key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"total\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"closedAt\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:orderId/close",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":orderId",
+                            "close"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:42.000Z",
+                      "updatedAt": "2026-07-28T03:10:42.000Z",
+                      "uid": "35240-a8b0e9f1-30d6-45c5-9f5e-2a8f49da1356"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:10:42.000Z",
+                  "updatedAt": "2026-07-28T03:10:42.000Z",
+                  "uid": "35240-bcebf165-b04e-4cdf-bf90-7d0c3db0c814"
+                }
+              ],
+              "id": "1d785009-5b63-442f-b373-9fbe8990c119",
+              "createdAt": "2026-07-28T03:10:42.000Z",
+              "updatedAt": "2026-07-28T03:10:42.000Z",
+              "uid": "35240-1d785009-5b63-442f-b373-9fbe8990c119"
+            }
+          ],
+          "id": "8a074565-70e3-4d7c-971c-385190fcaff9",
+          "createdAt": "2026-07-28T03:10:42.000Z",
+          "updatedAt": "2026-07-28T03:10:42.000Z",
+          "uid": "35240-8a074565-70e3-4d7c-971c-385190fcaff9"
+        },
+        {
+          "name": "Open Order",
+          "id": "1806df93-f25e-4f26-8fbb-cd094cc0b0fb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The restaurant's UUID identifier.",
+                "key": "CustomerId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"reservationStatus\": \"REQUESTED\",\n  \"partySize\": \"<integer>\",\n  \"startTime\": \"<dateTime>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"prepayment\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Called by TheFork to the POS provider's configured receipt opening URL when a reservation is seated, instructing the POS to open an order for the reservation. The POS responds with 204 on success; TheFork may retry on 5xx errors."
+          },
+          "response": [
+            {
+              "id": "d4db3cda-d8c8-4181-ad89-201a767ec035",
+              "name": "Order accepted. Empty body.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The restaurant's UUID identifier.",
+                    "key": "CustomerId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"reservationStatus\": \"REQUESTED\",\n  \"partySize\": \"<integer>\",\n  \"startTime\": \"<dateTime>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"prepayment\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:10:42.000Z",
+              "updatedAt": "2026-07-28T03:10:42.000Z",
+              "uid": "35240-d4db3cda-d8c8-4181-ad89-201a767ec035"
+            },
+            {
+              "id": "d34ebd09-92d3-411f-a732-699990f803b0",
+              "name": "Invalid API key or bearer token.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The restaurant's UUID identifier.",
+                    "key": "CustomerId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"reservationStatus\": \"REQUESTED\",\n  \"partySize\": \"<integer>\",\n  \"startTime\": \"<dateTime>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"prepayment\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:10:42.000Z",
+              "updatedAt": "2026-07-28T03:10:42.000Z",
+              "uid": "35240-d34ebd09-92d3-411f-a732-699990f803b0"
+            },
+            {
+              "id": "376c6d32-526d-4fb2-8269-33f521955d8e",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The restaurant's UUID identifier.",
+                    "key": "CustomerId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"reservationStatus\": \"REQUESTED\",\n  \"partySize\": \"<integer>\",\n  \"startTime\": \"<dateTime>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"prepayment\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:10:42.000Z",
+              "updatedAt": "2026-07-28T03:10:42.000Z",
+              "uid": "35240-376c6d32-526d-4fb2-8269-33f521955d8e"
+            }
+          ],
+          "createdAt": "2026-07-28T03:10:42.000Z",
+          "updatedAt": "2026-07-28T03:10:42.000Z",
+          "uid": "35240-1806df93-f25e-4f26-8fbb-cd094cc0b0fb"
+        }
+      ],
+      "id": "34c94fbe-9a94-4ac7-83e3-b748524d048e",
+      "createdAt": "2026-07-28T03:10:42.000Z",
+      "updatedAt": "2026-07-28T03:10:42.000Z",
+      "uid": "35240-34c94fbe-9a94-4ac7-83e3-b748524d048e"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.thefork.io/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.thefork.io/manager/v1"
+    }
+  ]
+}

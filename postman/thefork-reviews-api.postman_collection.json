@@ -1,0 +1,237 @@
+{
+  "info": {
+    "_postman_id": "d2386dd5-4273-4107-b282-71e56cb1058f",
+    "name": "TheFork B2B Customers Reviews API",
+    "description": "TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.\n\nContact Support:\n Name: TheFork Integrations\n Email: integrations@thefork.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:47.000Z",
+    "updatedAt": "2026-07-28T03:10:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d2386dd5-4273-4107-b282-71e56cb1058f"
+  },
+  "item": [
+    {
+      "name": "reviews",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Review Details",
+              "id": "5f61358a-7ba0-42d2-b5be-26658005d96f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reviews",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7fcec1b2-6a54-400d-98d6-6057d3dc8b62",
+                      "key": "id",
+                      "value": "<uuid>",
+                      "description": "(Required) Review UUID."
+                    }
+                  ]
+                },
+                "description": "Retrieve the review details for a given review UUID."
+              },
+              "response": [
+                {
+                  "id": "1712c029-7b89-4274-b377-97a0d272b5e7",
+                  "name": "Review details.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"restaurantId\": \"<string>\",\n  \"reservationId\": \"<string>\",\n  \"rating\": \"<number>\",\n  \"comment\": \"<string>\",\n  \"createdAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:10:47.000Z",
+                  "updatedAt": "2026-07-28T03:10:47.000Z",
+                  "uid": "35240-1712c029-7b89-4274-b377-97a0d272b5e7"
+                },
+                {
+                  "id": "48321e66-6ab8-4973-a4b6-31c20999eaaf",
+                  "name": "Invalid API key or bearer token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:10:47.000Z",
+                  "updatedAt": "2026-07-28T03:10:47.000Z",
+                  "uid": "35240-48321e66-6ab8-4973-a4b6-31c20999eaaf"
+                },
+                {
+                  "id": "ebbf7886-cfdf-468e-a61d-e6de10729e19",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:10:47.000Z",
+                  "updatedAt": "2026-07-28T03:10:47.000Z",
+                  "uid": "35240-ebbf7886-cfdf-468e-a61d-e6de10729e19"
+                }
+              ],
+              "createdAt": "2026-07-28T03:10:47.000Z",
+              "updatedAt": "2026-07-28T03:10:47.000Z",
+              "uid": "35240-5f61358a-7ba0-42d2-b5be-26658005d96f"
+            }
+          ],
+          "id": "9ab51319-c677-4157-bd49-eb134a70cbbf",
+          "createdAt": "2026-07-28T03:10:47.000Z",
+          "updatedAt": "2026-07-28T03:10:47.000Z",
+          "uid": "35240-9ab51319-c677-4157-bd49-eb134a70cbbf"
+        }
+      ],
+      "id": "9c634472-ba3e-4378-9ca6-f6e5a07924f0",
+      "createdAt": "2026-07-28T03:10:47.000Z",
+      "updatedAt": "2026-07-28T03:10:47.000Z",
+      "uid": "35240-9c634472-ba3e-4378-9ca6-f6e5a07924f0"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.thefork.io/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.thefork.io/manager/v1"
+    }
+  ]
+}

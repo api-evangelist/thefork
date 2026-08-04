@@ -1,0 +1,415 @@
+{
+  "info": {
+    "_postman_id": "5e369c97-f1d4-47c7-8aab-bb2e74e91b35",
+    "name": "TheFork B2B Customers API",
+    "description": "TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.\n\nContact Support:\n Name: TheFork Integrations\n Email: integrations@thefork.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:36.000Z",
+    "updatedAt": "2026-07-28T03:10:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5e369c97-f1d4-47c7-8aab-bb2e74e91b35"
+  },
+  "item": [
+    {
+      "name": "restaurants",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "customers",
+              "item": [
+                {
+                  "name": "phone",
+                  "item": [
+                    {
+                      "name": "{phoneNumber}",
+                      "item": [
+                        {
+                          "name": "Find Customer By Phone Number",
+                          "id": "7078834a-f9dd-4b69-babb-07070158468f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/restaurants/:id/customers/phone/:phoneNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "restaurants",
+                                ":id",
+                                "customers",
+                                "phone",
+                                ":phoneNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9449481e-baea-42f3-a9ef-86a69284bd55",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) The restaurant identifier."
+                                },
+                                {
+                                  "id": "1c51a654-ab4b-49c0-ab2a-1bb5e54664a0",
+                                  "key": "phoneNumber",
+                                  "value": "<string>",
+                                  "description": "(Required) Customer phone number in international format."
+                                }
+                              ]
+                            },
+                            "description": "Get the customer details for a given customer phone number."
+                          },
+                          "response": [
+                            {
+                              "id": "d71ba4a5-12fe-4a29-be94-8d3548c7d155",
+                              "name": "Customer details.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/restaurants/:id/customers/phone/:phoneNumber",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "restaurants",
+                                    ":id",
+                                    "customers",
+                                    "phone",
+                                    ":phoneNumber"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "phoneNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phoneNumber\": \"<string>\",\n  \"allergies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dietaryRestrictions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"seatingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-07-28T03:10:36.000Z",
+                              "updatedAt": "2026-07-28T03:10:36.000Z",
+                              "uid": "35240-d71ba4a5-12fe-4a29-be94-8d3548c7d155"
+                            },
+                            {
+                              "id": "1c4e628d-9c79-4972-8b3c-f495e9b7b3e5",
+                              "name": "Invalid API key or bearer token.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/restaurants/:id/customers/phone/:phoneNumber",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "restaurants",
+                                    ":id",
+                                    "customers",
+                                    "phone",
+                                    ":phoneNumber"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "phoneNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:10:36.000Z",
+                              "updatedAt": "2026-07-28T03:10:36.000Z",
+                              "uid": "35240-1c4e628d-9c79-4972-8b3c-f495e9b7b3e5"
+                            },
+                            {
+                              "id": "ebd77c4b-fd72-42bd-aef6-b987972a135f",
+                              "name": "The requested resource was not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/restaurants/:id/customers/phone/:phoneNumber",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "restaurants",
+                                    ":id",
+                                    "customers",
+                                    "phone",
+                                    ":phoneNumber"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "phoneNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:10:36.000Z",
+                              "updatedAt": "2026-07-28T03:10:36.000Z",
+                              "uid": "35240-ebd77c4b-fd72-42bd-aef6-b987972a135f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:10:36.000Z",
+                          "updatedAt": "2026-07-28T03:10:36.000Z",
+                          "uid": "35240-7078834a-f9dd-4b69-babb-07070158468f"
+                        }
+                      ],
+                      "id": "ee0a0942-c1d8-4d0c-9929-384ef62c8d42",
+                      "createdAt": "2026-07-28T03:10:36.000Z",
+                      "updatedAt": "2026-07-28T03:10:36.000Z",
+                      "uid": "35240-ee0a0942-c1d8-4d0c-9929-384ef62c8d42"
+                    }
+                  ],
+                  "id": "ed932057-7ac0-42f3-8941-ae6aa31fc32a",
+                  "createdAt": "2026-07-28T03:10:36.000Z",
+                  "updatedAt": "2026-07-28T03:10:36.000Z",
+                  "uid": "35240-ed932057-7ac0-42f3-8941-ae6aa31fc32a"
+                }
+              ],
+              "id": "11f37eb4-b9ec-4210-98c8-a7e46f228473",
+              "createdAt": "2026-07-28T03:10:36.000Z",
+              "updatedAt": "2026-07-28T03:10:36.000Z",
+              "uid": "35240-11f37eb4-b9ec-4210-98c8-a7e46f228473"
+            }
+          ],
+          "id": "37b3ce49-3772-46eb-a9f1-0876f8c1bf4d",
+          "createdAt": "2026-07-28T03:10:36.000Z",
+          "updatedAt": "2026-07-28T03:10:36.000Z",
+          "uid": "35240-37b3ce49-3772-46eb-a9f1-0876f8c1bf4d"
+        }
+      ],
+      "id": "3f777bca-59c4-41c1-91df-7985c464798e",
+      "createdAt": "2026-07-28T03:10:36.000Z",
+      "updatedAt": "2026-07-28T03:10:36.000Z",
+      "uid": "35240-3f777bca-59c4-41c1-91df-7985c464798e"
+    },
+    {
+      "name": "customers",
+      "item": [
+        {
+          "name": "List Customers",
+          "id": "0b139be2-8791-4762-9df6-51d49d38ff04",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Retrieve customer profiles associated with the authenticated client."
+          },
+          "response": [
+            {
+              "id": "71ac3854-0785-4fdc-ab56-444610a5d0bf",
+              "name": "A list of customers.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"seatingPreferences\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"seatingPreferences\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+              "createdAt": "2026-07-28T03:10:36.000Z",
+              "updatedAt": "2026-07-28T03:10:36.000Z",
+              "uid": "35240-71ac3854-0785-4fdc-ab56-444610a5d0bf"
+            },
+            {
+              "id": "cf55d788-dce8-4ce1-a7f8-4ad72c55cefe",
+              "name": "Invalid API key or bearer token.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:10:36.000Z",
+              "updatedAt": "2026-07-28T03:10:36.000Z",
+              "uid": "35240-cf55d788-dce8-4ce1-a7f8-4ad72c55cefe"
+            }
+          ],
+          "createdAt": "2026-07-28T03:10:36.000Z",
+          "updatedAt": "2026-07-28T03:10:36.000Z",
+          "uid": "35240-0b139be2-8791-4762-9df6-51d49d38ff04"
+        }
+      ],
+      "id": "ec0cf45c-9016-41ec-93b3-d90061cc8814",
+      "createdAt": "2026-07-28T03:10:36.000Z",
+      "updatedAt": "2026-07-28T03:10:36.000Z",
+      "uid": "35240-ec0cf45c-9016-41ec-93b3-d90061cc8814"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.thefork.io/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.thefork.io/manager/v1"
+    }
+  ]
+}
