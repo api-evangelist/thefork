@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TheFork B2B Customers API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.thefork.io/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Customer By Phone Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thefork.io/manager/v1/restaurants/:id/customers/phone/:phoneNumber",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier."
+              },
+              {
+                "name": "phoneNumber",
+                "value": "",
+                "type": "path",
+                "description": "Customer phone number in international format."
+              }
+            ]
+          },
+          "docs": "Get the customer details for a given customer phone number."
+        },
+        {
+          "info": {
+            "name": "List Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thefork.io/manager/v1/customers"
+          },
+          "docs": "Retrieve customer profiles associated with the authenticated client."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

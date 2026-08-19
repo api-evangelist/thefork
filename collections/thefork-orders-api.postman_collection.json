@@ -1,0 +1,527 @@
+{
+  "item": [
+    {
+      "id": "aa85df52-8432-4261-aad5-54c6a406347f",
+      "name": "Orders",
+      "description": {
+        "content": "Open and close point-of-sale orders tied to reservations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7fc260e2-b32a-4bea-b181-0efa03319d0d",
+          "name": "Open Order",
+          "request": {
+            "name": "Open Order",
+            "description": {
+              "content": "Called by TheFork to the POS provider's configured receipt opening URL when a reservation is seated, instructing the POS to open an order for the reservation. The POS responds with 204 on success; TheFork may retry on 5xx errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The restaurant's UUID identifier.",
+                "key": "CustomerId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"reservationStatus\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"startTime\": \"<dateTime>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"allergies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dietaryRestrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"prepayment\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"offer\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"discount\": \"<number>\",\n    \"price\": \"<integer>\"\n  },\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"areaName\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4fe2b7c3-e4f4-42e9-a8dd-1a1908066100",
+              "name": "Order accepted. Empty body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The restaurant's UUID identifier.",
+                    "key": "CustomerId",
+                    "value": "<uuid>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f\",\n  \"createdAt\": \"2026-06-20T20:35:00Z\",\n  \"reservationStatus\": \"CONFIRMED\",\n  \"partySize\": 4,\n  \"startTime\": \"2026-06-20T20:30:00Z\",\n  \"customer\": {\n    \"id\": \"cus_55ab\",\n    \"firstName\": \"Camille\",\n    \"lastName\": \"Durand\",\n    \"allergies\": [\n      \"peanuts\"\n    ]\n  },\n  \"tables\": [\n    {\n      \"name\": \"T12\",\n      \"areaName\": \"Terrace\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b6fa8c1-253e-4584-985b-934c2a9a258a",
+              "name": "Invalid API key or bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The restaurant's UUID identifier.",
+                    "key": "CustomerId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f\",\n  \"createdAt\": \"2026-06-20T20:35:00Z\",\n  \"reservationStatus\": \"CONFIRMED\",\n  \"partySize\": 4,\n  \"startTime\": \"2026-06-20T20:30:00Z\",\n  \"customer\": {\n    \"id\": \"cus_55ab\",\n    \"firstName\": \"Camille\",\n    \"lastName\": \"Durand\",\n    \"allergies\": [\n      \"peanuts\"\n    ]\n  },\n  \"tables\": [\n    {\n      \"name\": \"T12\",\n      \"areaName\": \"Terrace\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4365,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a397cff2-ff3c-4776-a291-e455802f7335",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The restaurant's UUID identifier.",
+                    "key": "CustomerId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f\",\n  \"createdAt\": \"2026-06-20T20:35:00Z\",\n  \"reservationStatus\": \"CONFIRMED\",\n  \"partySize\": 4,\n  \"startTime\": \"2026-06-20T20:30:00Z\",\n  \"customer\": {\n    \"id\": \"cus_55ab\",\n    \"firstName\": \"Camille\",\n    \"lastName\": \"Durand\",\n    \"allergies\": [\n      \"peanuts\"\n    ]\n  },\n  \"tables\": [\n    {\n      \"name\": \"T12\",\n      \"areaName\": \"Terrace\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4365,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c05c248-9581-4c23-9d33-8bf17c42cc30",
+          "name": "Close Order",
+          "request": {
+            "name": "Close Order",
+            "description": {
+              "content": "Close an order on payment and send the final order details (total amount and currency) back to TheFork so the reservation can be marked LEFT.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "close"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orderId",
+                  "description": "(Required) TheFork's UUID for the order."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) POS provider API key.",
+                "key": "X-Api-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"total\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"closedAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fdc8a359-ccd8-4d6d-833f-fac5c9007cc4",
+              "name": "Order closed. Empty body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orderId",
+                      "description": "(Required) TheFork's UUID for the order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) POS provider API key.",
+                    "key": "X-Api-Key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total\": {\n    \"amount\": 12500,\n    \"currency\": \"EUR\"\n  },\n  \"closedAt\": \"2026-06-20T22:10:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "692d3ddb-5894-4279-be9c-731230e144c0",
+              "name": "Invalid API key or bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orderId",
+                      "description": "(Required) TheFork's UUID for the order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) POS provider API key.",
+                    "key": "X-Api-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total\": {\n    \"amount\": 12500,\n    \"currency\": \"EUR\"\n  },\n  \"closedAt\": \"2026-06-20T22:10:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4365,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee59c885-615c-419c-b6d0-43f441bd6a1e",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orderId",
+                      "description": "(Required) TheFork's UUID for the order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) POS provider API key.",
+                    "key": "X-Api-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"total\": {\n    \"amount\": 12500,\n    \"currency\": \"EUR\"\n  },\n  \"closedAt\": \"2026-06-20T22:10:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4365,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.thefork.io/manager/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.thefork.io/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a770a5b0-b4c1-4d42-81c3-8680968dca55",
+    "name": "TheFork B2B Customers Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.\n\nContact Support:\n Name: TheFork Integrations\n Email: integrations@thefork.com",
+      "type": "text/plain"
+    }
+  }
+}
