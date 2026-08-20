@@ -28,6 +28,13 @@ tags:
   - Reservations
   - Booking
   - Dining
+  - Point-of-Sale
+  - Marketplace
+tags_raw:
+  - Restaurant
+  - Reservations
+  - Booking
+  - Dining
   - Point Of Sale
   - Marketplace
 url: https://raw.githubusercontent.com/api-evangelist/thefork/refs/heads/main/apis.yml
@@ -90,6 +97,8 @@ apis:
   humanURL: https://docs.thefork.io/B2B-API/introduction
   baseURL: https://api.thefork.io
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
