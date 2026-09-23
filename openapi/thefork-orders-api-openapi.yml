@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: TheFork B2B Customers Orders API
-  description: TheFork B2B API lets restaurants and groups integrate with TheFork Management (TFM) platform. It supports designing custom booking flows, creating and managing reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and uses a single API version across all endpoints; breaking changes introduce a new version with a six-month deprecation window. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token (audience https://api.thefork.io). Specifications are derived from the public developer portal at https://docs.thefork.io.
+  title: TheFork POS Orders API
+  description: TheFork POS API enables point-of-sale providers to integrate their systems with TheFork Management (TFM) platform and synchronize reservations and orders.
   version: v1
   contact:
     name: TheFork Integrations
@@ -9,10 +9,8 @@ info:
     url: https://docs.thefork.io/
   termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
 servers:
-- url: https://api.thefork.io/manager/v1
-  description: Production
-security:
-- OAuth2ClientCredentials: []
+- url: https://api.thefork.io/pos/v1
+  description: Production (POS provider callbacks to TheFork)
 tags:
 - name: Orders
   description: Open and close point-of-sale orders tied to reservations.
@@ -107,6 +105,24 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    OrderClose:
+      type: object
+      required:
+      - total
+      properties:
+        total:
+          $ref: '#/components/schemas/Money'
+        closedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the order was closed.
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
     Offer:
       type: object
       properties:
@@ -119,15 +135,6 @@ components:
         price:
           type: integer
           description: Price in the smallest currency unit (cents).
-    ReservationStatus:
-      type: string
-      enum:
-      - RECORDED
-      - CONFIRMED
-      - CANCELED
-      - NO_SHOW
-      - REQUESTED
-      - REFUSED
     Order:
       type: object
       required:
@@ -168,15 +175,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Table'
-    Table:
+    Money:
       type: object
+      description: A monetary amount with currency.
       properties:
-        name:
+        amount:
+          type: integer
+          description: Amount in the smallest currency unit (cents).
+          example: 12500
+        currency:
           type: string
-          example: T12
-        areaName:
-          type: string
-          example: Terrace
+          description: ISO 4217 currency code.
+          example: EUR
     Customer:
       type: object
       properties:
@@ -194,45 +204,27 @@ components:
           type: array
           items:
             type: string
-    OrderClose:
-      type: object
-      required:
-      - total
-      properties:
-        total:
-          $ref: '#/components/schemas/Money'
-        closedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the order was closed.
-    Money:
-      type: object
-      description: A monetary amount with currency.
-      properties:
-        amount:
-          type: integer
-          description: Amount in the smallest currency unit (cents).
-          example: 12500
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
-    Error:
+    ReservationStatus:
+      type: string
+      enum:
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - NO_SHOW
+      - REQUESTED
+      - REFUSED
+    Table:
       type: object
       properties:
-        status:
-          type: integer
-        message:
+        name:
           type: string
+          example: T12
+        areaName:
+          type: string
+          example: Terrace
   responses:
     TooManyRequests:
       description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid API key or bearer token.
       content:
         application/json:
           schema:
@@ -243,11 +235,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
-    OAuth2ClientCredentials:
-      type: oauth2
-      description: Auth0 OAuth 2.0 client credentials flow. Exchange client_id and client_secret for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io. Tokens expire after 8600 seconds.
-      flows:
-        clientCredentials:
-          tokenUrl: https://auth.thefork.io/oauth/token
-          scopes: {}
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key issued by TheFork for POS API v1.
+    BearerToken:
+      type: http
+      scheme: bearer
+      description: Bearer token presented by TheFork on calls to the POS provider.

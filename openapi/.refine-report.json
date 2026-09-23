@@ -1,20 +1,28 @@
 {
   "provider": "thefork",
   "sources": [
-    "thefork-customers-api-openapi.yml",
-    "thefork-orders-api-openapi.yml",
-    "thefork-reservations-api-openapi.yml",
-    "thefork-reviews-api-openapi.yml"
+    "_original/thefork-b2b-openapi.yml",
+    "_original/thefork-pos-openapi.yml"
   ],
   "outputs": [
     "thefork-customers-api-openapi.yml",
-    "thefork-orders-api-openapi.yml",
     "thefork-reservations-api-openapi.yml",
-    "thefork-reviews-api-openapi.yml"
+    "thefork-reviews-api-openapi.yml",
+    "thefork-orders-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "thefork-b2b-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thefork-pos-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "thefork-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-reservations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
