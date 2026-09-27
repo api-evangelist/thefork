@@ -1,16 +1,16 @@
 openapi: 3.2.0
 info:
-  title: TheFork POS Orders API
-  description: TheFork POS API enables point-of-sale providers to integrate their systems with TheFork Management (TFM) platform and synchronize reservations and orders.
-  version: v1
-  contact:
-    name: TheFork Integrations
-    email: integrations@thefork.com
-    url: https://docs.thefork.io/
+  title: Thefork Orders API
   termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+  x-refined-note:
+  - x-provenance differs across the merged source definitions and was not carried
+  - x-source-title differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Orders across 2 of this provider''s published API definitions: thefork-pos-openapi.yml, lafourchette-v1-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.thefork.io/pos/v1
   description: Production (POS provider callbacks to TheFork)
+- url: https://api.thefork.io/pos
 tags:
 - name: Orders
   description: Open and close point-of-sale orders tied to reservations.
@@ -61,6 +61,9 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+    servers:
+    - url: https://api.thefork.io/pos/v1
+      description: Production (POS provider callbacks to TheFork)
   /orders/{orderId}/close:
     post:
       tags:
@@ -103,19 +106,169 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
-components:
-  schemas:
-    OrderClose:
-      type: object
-      required:
-      - total
-      properties:
-        total:
-          $ref: '#/components/schemas/Money'
-        closedAt:
+    servers:
+    - url: https://api.thefork.io/pos/v1
+      description: Production (POS provider callbacks to TheFork)
+  /v1/orders/{orderUuid}:
+    put:
+      operationId: putV1OrdersOrderuuid
+      tags:
+      - Orders
+      description: putV1OrdersOrderuuid
+      parameters:
+      - description: Order UUID
+        x-format:
+          guid: true
+        name: orderUuid
+        in: path
+        required: true
+        schema:
           type: string
-          format: date-time
-          description: ISO 8601 timestamp when the order was closed.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locale:
+                  type: string
+                  description: Order locale
+                currency:
+                  type: string
+                  description: Order currency
+                totalAmount:
+                  type: number
+                  description: Order total amount
+                lines:
+                  type: array
+                  description: Order Lines
+                  items:
+                    type: object
+                    properties:
+                      label:
+                        type: string
+                        description: Order line label
+                        maxLength: 500
+                      category:
+                        type: string
+                        description: Order line category
+                        maxLength: 260
+                      totalPrice:
+                        type: number
+                        description: Order line total price
+                      quantity:
+                        type: number
+                        description: Order line quantity
+                    required:
+                    - label
+                    - category
+                    - totalPrice
+                    - quantity
+              required:
+              - locale
+              - currency
+              - totalAmount
+              - lines
+      responses:
+        '200':
+          description: Successful
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    x-constraint:
+                      positive: true
+                  pos:
+                    type: string
+                  reservationUuid:
+                    type: string
+                  posId:
+                    type: number
+                    x-constraint:
+                      positive: true
+                  status:
+                    type: string
+                  orderUuid:
+                    type: string
+                  currencyIso:
+                    type: string
+                  posTableRestaurantUuid:
+                    type: string
+                  mealDate:
+                    type: string
+                  mealDateTime:
+                    type: string
+                  externalId:
+                    type: number
+                  externalOrderId:
+                    type: string
+                  totalPrice:
+                    type: number
+                    enum:
+                    - 0
+                    x-constraint:
+                      positive: true
+                  readyToPayNotificationDispatchedAt:
+                    type: string
+                  externalReservationId:
+                    type: string
+                  orderLines:
+                    type: array
+                    description: Order lines / cannot be typed because pos-service does not confirm the structure
+                    items:
+                      type: string
+                  orderPayments:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - id
+                - posId
+                - status
+                - orderUuid
+                - currencyIso
+                - mealDate
+      security:
+      - ApiKeyAuth: []
+      x-source-page: https://docs.thefork.io/POS-API/API specifications/put-v-1-orders-orderuuid-e50
+      x-source-asset: https://docs.thefork.io/assets/js/d9f95ff6.22e0183b.js
+      summary: Put V1 orders orderuuid
+      x-summary-source: derived
+    servers:
+    - url: https://api.thefork.io/pos
+components:
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ReservationStatus:
+      type: string
+      enum:
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - NO_SHOW
+      - REQUESTED
+      - REFUSED
     Error:
       type: object
       properties:
@@ -135,6 +288,46 @@ components:
         price:
           type: integer
           description: Price in the smallest currency unit (cents).
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        allergies:
+          type: array
+          items:
+            type: string
+        dietaryRestrictions:
+          type: array
+          items:
+            type: string
+    Money:
+      type: object
+      description: A monetary amount with currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest currency unit (cents).
+          example: 12500
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    OrderClose:
+      type: object
+      required:
+      - total
+      properties:
+        total:
+          $ref: '#/components/schemas/Money'
+        closedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the order was closed.
     Order:
       type: object
       required:
@@ -175,44 +368,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Table'
-    Money:
-      type: object
-      description: A monetary amount with currency.
-      properties:
-        amount:
-          type: integer
-          description: Amount in the smallest currency unit (cents).
-          example: 12500
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
-    Customer:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        allergies:
-          type: array
-          items:
-            type: string
-        dietaryRestrictions:
-          type: array
-          items:
-            type: string
-    ReservationStatus:
-      type: string
-      enum:
-      - RECORDED
-      - CONFIRMED
-      - CANCELED
-      - NO_SHOW
-      - REQUESTED
-      - REFUSED
     Table:
       type: object
       properties:
@@ -222,25 +377,6 @@ components:
         areaName:
           type: string
           example: Terrace
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid API key or bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKey:
       type: apiKey
@@ -251,3 +387,10 @@ components:
       type: http
       scheme: bearer
       description: Bearer token presented by TheFork on calls to the POS provider.
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+x-refined-from:
+- thefork-pos-openapi.yml
+- lafourchette-v1-api-openapi.yml

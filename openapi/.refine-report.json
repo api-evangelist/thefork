@@ -2,22 +2,46 @@
   "provider": "thefork",
   "sources": [
     "_original/thefork-b2b-openapi.yml",
-    "_original/thefork-pos-openapi.yml"
+    "_original/thefork-pos-openapi.yml",
+    "lafourchette-booking-flow-api-openapi.yml",
+    "lafourchette-data-api-openapi.yml",
+    "lafourchette-phone-api-openapi.yml",
+    "lafourchette-review-flow-api-openapi.yml",
+    "lafourchette-v1-api-openapi.yml"
   ],
   "outputs": [
     "thefork-customers-api-openapi.yml",
     "thefork-reservations-api-openapi.yml",
     "thefork-reviews-api-openapi.yml",
-    "thefork-orders-api-openapi.yml"
+    "thefork-orders-api-openapi.yml",
+    "thefork-booking-flow-api-openapi.yml",
+    "thefork-data-api-openapi.yml",
+    "thefork-phone-api-openapi.yml",
+    "thefork-review-flow-api-openapi.yml",
+    "thefork-create-api-openapi.yml",
+    "thefork-logo-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "archived openapi/lafourchette-booking-flow-api-openapi.yml",
+    "archived openapi/lafourchette-data-api-openapi.yml",
+    "archived openapi/lafourchette-phone-api-openapi.yml",
+    "archived openapi/lafourchette-review-flow-api-openapi.yml",
+    "archived openapi/lafourchette-v1-api-openapi.yml"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "thefork-b2b-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "thefork-pos-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "lafourchette-v1-api-openapi.yml: tagged paths POST /v1/create -> Create",
+    "lafourchette-v1-api-openapi.yml: tagged paths PUT /v1/orders/{orderUuid} -> Orders",
+    "lafourchette-v1-api-openapi.yml: tagged paths PUT /v1/{posUuid}/logo -> Logo",
+    "lafourchette-v1-api-openapi.yml: declared missing tag: Create",
+    "lafourchette-v1-api-openapi.yml: declared missing tag: Logo",
+    "lafourchette-v1-api-openapi.yml: declared missing tag: Orders",
+    "tag 'Orders' spans 2 source specs (thefork-pos-openapi.yml, lafourchette-v1-api-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+6 apis, 10 total)"
   ],
   "skipped": [
     "thefork-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",

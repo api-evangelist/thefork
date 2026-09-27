@@ -252,6 +252,162 @@ apis:
     url: json-structure/thefork-pos-order-structure.json
   - type: Examples
     url: examples/thefork-pos-create-order-example.json
+- aid: thefork:thefork-booking-flow-api
+  name: TheFork Booking flow API
+  description: The Booking flow API from TheFork — 8 operation(s) for booking flow.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Booking flow
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-booking-flow-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: Webhooks
+    url: https://docs.thefork.io/B2B-API/event-webhook-flow
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/API%20specifications/tfm-pos-api-v-1
+  - type: GettingStarted
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: Webhooks
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+- aid: thefork:thefork-create-api
+  name: TheFork Create API
+  description: The Create API from TheFork — 1 operation(s) for create.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Create
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-create-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: Webhooks
+    url: https://docs.thefork.io/B2B-API/event-webhook-flow
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/API%20specifications/tfm-pos-api-v-1
+  - type: GettingStarted
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: Webhooks
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+- aid: thefork:thefork-data-api
+  name: TheFork Data API
+  description: The Data API from TheFork — 4 operation(s) for data.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Data
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: Webhooks
+    url: https://docs.thefork.io/B2B-API/event-webhook-flow
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/API%20specifications/tfm-pos-api-v-1
+  - type: GettingStarted
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: Webhooks
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+- aid: thefork:thefork-logo-api
+  name: TheFork Logo API
+  description: The Logo API from TheFork — 1 operation(s) for logo.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Logo
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-logo-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: Webhooks
+    url: https://docs.thefork.io/B2B-API/event-webhook-flow
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/API%20specifications/tfm-pos-api-v-1
+  - type: GettingStarted
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: Webhooks
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+- aid: thefork:thefork-phone-api
+  name: TheFork Phone API
+  description: The Phone API from TheFork — 3 operation(s) for phone.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Phone
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-phone-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: Webhooks
+    url: https://docs.thefork.io/B2B-API/event-webhook-flow
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/API%20specifications/tfm-pos-api-v-1
+  - type: GettingStarted
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: Webhooks
+    url: https://docs.thefork.io/POS-API/Flow/create-order
+- aid: thefork:thefork-review-flow-api
+  name: TheFork Review flow API
+  description: The Review flow API from TheFork — 3 operation(s) for review flow.
+  humanURL: https://docs.thefork.io/B2B-API/introduction
+  baseURL: https://api.thefork.io
+  tags:
+  - Review flow
+  properties:
+  - type: OpenAPI
+    url: openapi/thefork-review-flow-api-openapi.yml
+  - type: Documentation
+    url: https://docs.thefork.io/B2B-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers
+  - type: Authentication
+    url: https://docs.thefork.io/B2B-API/authentication
+  - type: Webhooks
+    url: https://docs.thefork.io/B2B-API/event-webhook-flow
+  - type: Documentation
+    url: https://docs.thefork.io/POS-API/introduction
+  - type: APIReference
+    url: https://docs.thefork.io/POS-API/API%20specifications/tfm-pos-api-v-1
+  - type: GettingStarted
+    url: https://docs.thefork.io/POS-API/how-it-works
+  - type: Webhooks
+    url: https://docs.thefork.io/POS-API/Flow/create-order
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/thefork/overview
@@ -343,6 +499,8 @@ common:
         description: POS API for point-of-sale vendors to sync orders and reservations.
       - name: For Partners
         description: Partner API for third-party partners (announced as available soon).
+  - type: APIReference
+    url: https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

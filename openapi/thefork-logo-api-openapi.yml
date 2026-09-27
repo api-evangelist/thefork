@@ -1,0 +1,84 @@
+openapi: 3.2.0
+info:
+  title: TheFork POS V1 Logo API
+  version: 1.0.0
+  description: TheFork (LA FOURCHETTE SAS) POS API v1 for connecting a point-of-sale system to TheFork Manager (TFM). A POS company registers its instance, uploads a logo, and closes orders back to TheFork with the bill lines and total so spend data is attached to the reservation. Authenticated with an API key in the X-Api-Key header.
+  contact:
+    name: TheFork integrations team
+    email: integrations@thefork.com
+    url: https://docs.thefork.io/
+  termsOfService: https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf
+  x-provenance: Reconstructed by API Evangelist from the OpenAPI operation objects TheFork itself publishes in the compiled assets of its Docusaurus developer portal (docs.thefork.io, docusaurus-plugin-openapi-docs). TheFork does not serve a single downloadable OpenAPI document at any probed URL; every path, operationId, parameter, request body, response and schema below is verbatim provider content decoded from those published page bundles. Nothing here was authored by API Evangelist.
+  x-source-title: TFM POS API v1
+servers:
+- url: https://api.thefork.io/pos
+tags:
+- name: Logo
+paths:
+  /v1/{posUuid}/logo:
+    put:
+      operationId: putV1PosuuidLogo
+      tags:
+      - Logo
+      description: putV1PosuuidLogo
+      parameters:
+      - description: POS UUID
+        x-format:
+          guid: true
+        name: posUuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                logo:
+                  type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  uuid:
+                    type: string
+                  type:
+                    type: string
+                  homepageUrl:
+                    type: string
+                  receiptOpeningUrl:
+                    type: string
+                  oauthAuthorizeUrl:
+                    type: string
+                  oauthTokenUrl:
+                    type: string
+                  oauthScope:
+                    type: array
+                    items:
+                      type: string
+                  availableOn:
+                    type: array
+                    items:
+                      type: string
+                  logoPath:
+                    type: string
+      security:
+      - ApiKeyAuth: []
+      x-source-page: https://docs.thefork.io/POS-API/API specifications/put-v-1-posuuid-logo-bf5
+      x-source-asset: https://docs.thefork.io/assets/js/19816ad5.b282cb0e.js
+      summary: Put V1 posuuid logo
+      x-summary-source: derived
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Api-Key
+      in: header
