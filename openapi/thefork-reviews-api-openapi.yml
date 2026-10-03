@@ -55,26 +55,19 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Invalid API key or bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        message:
-          type: string
     Review:
       type: object
       properties:
@@ -99,6 +92,13 @@ components:
           type: string
           format: date-time
           example: '2026-06-21T10:00:00Z'
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2

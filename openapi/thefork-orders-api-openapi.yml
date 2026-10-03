@@ -6,109 +6,14 @@ info:
   - x-provenance differs across the merged source definitions and was not carried
   - x-source-title differs across the merged source definitions and was not carried
   version: '1.0'
-  description: 'Operations tagged Orders across 2 of this provider''s published API definitions: thefork-pos-openapi.yml, lafourchette-v1-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Orders across 2 of this provider''s published API definitions: lafourchette-v1-api-openapi.yml, thefork-pos-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.thefork.io/pos
 - url: https://api.thefork.io/pos/v1
   description: Production (POS provider callbacks to TheFork)
-- url: https://api.thefork.io/pos
 tags:
 - name: Orders
-  description: Open and close point-of-sale orders tied to reservations.
 paths:
-  /orders:
-    post:
-      tags:
-      - Orders
-      summary: Open Order
-      description: Called by TheFork to the POS provider's configured receipt opening URL when a reservation is seated, instructing the POS to open an order for the reservation. The POS responds with 204 on success; TheFork may retry on 5xx errors.
-      operationId: openOrder
-      parameters:
-      - name: CustomerId
-        in: header
-        required: true
-        description: The restaurant's UUID identifier.
-        schema:
-          type: string
-          format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-            examples:
-              openOrder:
-                summary: Open order for a seated reservation
-                value:
-                  orderId: 2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f
-                  createdAt: '2026-06-20T20:35:00Z'
-                  reservationStatus: CONFIRMED
-                  partySize: 4
-                  startTime: '2026-06-20T20:30:00Z'
-                  customer:
-                    id: cus_55ab
-                    firstName: Camille
-                    lastName: Durand
-                    allergies:
-                    - peanuts
-                  tables:
-                  - name: T12
-                    areaName: Terrace
-      responses:
-        '204':
-          description: Order accepted. Empty body.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-    servers:
-    - url: https://api.thefork.io/pos/v1
-      description: Production (POS provider callbacks to TheFork)
-  /orders/{orderId}/close:
-    post:
-      tags:
-      - Orders
-      summary: Close Order
-      description: Close an order on payment and send the final order details (total amount and currency) back to TheFork so the reservation can be marked LEFT.
-      operationId: closeOrder
-      parameters:
-      - name: orderId
-        in: path
-        required: true
-        description: TheFork's UUID for the order.
-        schema:
-          type: string
-          format: uuid
-      - name: X-Api-Key
-        in: header
-        required: true
-        description: POS provider API key.
-        schema:
-          type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OrderClose'
-            examples:
-              closeOrder:
-                summary: Close order on payment
-                value:
-                  total:
-                    amount: 12500
-                    currency: EUR
-                  closedAt: '2026-06-20T22:10:00Z'
-      responses:
-        '204':
-          description: Order closed. Empty body.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-    servers:
-    - url: https://api.thefork.io/pos/v1
-      description: Production (POS provider callbacks to TheFork)
   /v1/orders/{orderUuid}:
     put:
       operationId: putV1OrdersOrderuuid
@@ -239,55 +144,102 @@ paths:
       x-summary-source: derived
     servers:
     - url: https://api.thefork.io/pos
+  /orders:
+    post:
+      tags:
+      - Orders
+      summary: Open Order
+      description: Called by TheFork to the POS provider's configured receipt opening URL when a reservation is seated, instructing the POS to open an order for the reservation. The POS responds with 204 on success; TheFork may retry on 5xx errors.
+      operationId: openOrder
+      parameters:
+      - name: CustomerId
+        in: header
+        required: true
+        description: The restaurant's UUID identifier.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+            examples:
+              openOrder:
+                summary: Open order for a seated reservation
+                value:
+                  orderId: 2c1f7e90-1a2b-4c3d-8e9f-0a1b2c3d4e5f
+                  createdAt: '2026-06-20T20:35:00Z'
+                  reservationStatus: CONFIRMED
+                  partySize: 4
+                  startTime: '2026-06-20T20:30:00Z'
+                  customer:
+                    id: cus_55ab
+                    firstName: Camille
+                    lastName: Durand
+                    allergies:
+                    - peanuts
+                  tables:
+                  - name: T12
+                    areaName: Terrace
+      responses:
+        '204':
+          description: Order accepted. Empty body.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    servers:
+    - url: https://api.thefork.io/pos/v1
+      description: Production (POS provider callbacks to TheFork)
+  /orders/{orderId}/close:
+    post:
+      tags:
+      - Orders
+      summary: Close Order
+      description: Close an order on payment and send the final order details (total amount and currency) back to TheFork so the reservation can be marked LEFT.
+      operationId: closeOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        description: TheFork's UUID for the order.
+        schema:
+          type: string
+          format: uuid
+      - name: X-Api-Key
+        in: header
+        required: true
+        description: POS provider API key.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderClose'
+            examples:
+              closeOrder:
+                summary: Close order on payment
+                value:
+                  total:
+                    amount: 12500
+                    currency: EUR
+                  closedAt: '2026-06-20T22:10:00Z'
+      responses:
+        '204':
+          description: Order closed. Empty body.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.thefork.io/pos/v1
+      description: Production (POS provider callbacks to TheFork)
 components:
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid API key or bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ReservationStatus:
-      type: string
-      enum:
-      - RECORDED
-      - CONFIRMED
-      - CANCELED
-      - NO_SHOW
-      - REQUESTED
-      - REFUSED
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        message:
-          type: string
-    Offer:
-      type: object
-      properties:
-        type:
-          type: string
-        name:
-          type: string
-        discount:
-          type: number
-        price:
-          type: integer
-          description: Price in the smallest currency unit (cents).
     Customer:
       type: object
       properties:
@@ -305,29 +257,6 @@ components:
           type: array
           items:
             type: string
-    Money:
-      type: object
-      description: A monetary amount with currency.
-      properties:
-        amount:
-          type: integer
-          description: Amount in the smallest currency unit (cents).
-          example: 12500
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
-    OrderClose:
-      type: object
-      required:
-      - total
-      properties:
-        total:
-          $ref: '#/components/schemas/Money'
-        closedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the order was closed.
     Order:
       type: object
       required:
@@ -368,6 +297,57 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Table'
+    ReservationStatus:
+      type: string
+      enum:
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - NO_SHOW
+      - REQUESTED
+      - REFUSED
+    Money:
+      type: object
+      description: A monetary amount with currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest currency unit (cents).
+          example: 12500
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    Offer:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        discount:
+          type: number
+        price:
+          type: integer
+          description: Price in the smallest currency unit (cents).
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+    OrderClose:
+      type: object
+      required:
+      - total
+      properties:
+        total:
+          $ref: '#/components/schemas/Money'
+        closedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the order was closed.
     Table:
       type: object
       properties:
@@ -377,7 +357,30 @@ components:
         areaName:
           type: string
           example: Terrace
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Api-Key
+      in: header
     ApiKey:
       type: apiKey
       in: header
@@ -387,10 +390,6 @@ components:
       type: http
       scheme: bearer
       description: Bearer token presented by TheFork on calls to the POS provider.
-    ApiKeyAuth:
-      type: apiKey
-      name: X-Api-Key
-      in: header
 x-refined-from:
-- thefork-pos-openapi.yml
 - lafourchette-v1-api-openapi.yml
+- thefork-pos-openapi.yml

@@ -147,57 +147,6 @@ paths:
           $ref: '#/components/responses/Conflict'
 components:
   schemas:
-    ReservationCreateRequest:
-      type: object
-      required:
-      - mealDate
-      - partySize
-      - customer
-      properties:
-        mealDate:
-          type: string
-          format: date-time
-          description: The date and time of the meal (ISO 8601).
-          example: '2026-06-20T20:30:00Z'
-        partySize:
-          type: integer
-          minimum: 1
-          description: Number of guests.
-          example: 4
-        customer:
-          $ref: '#/components/schemas/CustomerInput'
-        offerId:
-          type: string
-          description: Identifier of an applied offer, if any.
-          example: off_summer25
-        menuId:
-          type: string
-          description: Identifier of a selected preset menu, if any.
-          example: menu_tasting
-        notes:
-          type: string
-          description: Free-text note attached to the reservation.
-          example: Window table if possible.
-    ReservationStatus:
-      type: string
-      description: Lifecycle status of a reservation.
-      enum:
-      - REQUESTED
-      - RECORDED
-      - CONFIRMED
-      - CANCELED
-      - REFUSED
-      - NO_SHOW
-      - ARRIVED
-      - SEATED
-      - LEFT
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        message:
-          type: string
     Reservation:
       type: object
       properties:
@@ -232,6 +181,50 @@ components:
           type: string
           format: date-time
           example: '2026-06-03T09:15:00Z'
+    ReservationStatus:
+      type: string
+      description: Lifecycle status of a reservation.
+      enum:
+      - REQUESTED
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - REFUSED
+      - NO_SHOW
+      - ARRIVED
+      - SEATED
+      - LEFT
+    ReservationCreateRequest:
+      type: object
+      required:
+      - mealDate
+      - partySize
+      - customer
+      properties:
+        mealDate:
+          type: string
+          format: date-time
+          description: The date and time of the meal (ISO 8601).
+          example: '2026-06-20T20:30:00Z'
+        partySize:
+          type: integer
+          minimum: 1
+          description: Number of guests.
+          example: 4
+        customer:
+          $ref: '#/components/schemas/CustomerInput'
+        offerId:
+          type: string
+          description: Identifier of an applied offer, if any.
+          example: off_summer25
+        menuId:
+          type: string
+          description: Identifier of a selected preset menu, if any.
+          example: menu_tasting
+        notes:
+          type: string
+          description: Free-text note attached to the reservation.
+          example: Window table if possible.
     Offer:
       type: object
       properties:
@@ -249,6 +242,33 @@ components:
           type: integer
           description: Price in the smallest currency unit (cents).
           example: 4500
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+    CustomerInput:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        firstName:
+          type: string
+          example: Camille
+        lastName:
+          type: string
+          example: Durand
+        email:
+          type: string
+          format: email
+          example: camille.durand@example.com
+        phoneNumber:
+          type: string
+          description: Phone number in international format.
+          example: '+33612345678'
     Customer:
       type: object
       properties:
@@ -289,26 +309,6 @@ components:
             type: string
           example:
           - terrace
-    CustomerInput:
-      type: object
-      required:
-      - firstName
-      - lastName
-      properties:
-        firstName:
-          type: string
-          example: Camille
-        lastName:
-          type: string
-          example: Durand
-        email:
-          type: string
-          format: email
-          example: camille.durand@example.com
-        phoneNumber:
-          type: string
-          description: Phone number in international format.
-          example: '+33612345678'
     ReservationUpdateRequest:
       type: object
       description: Fields that can be changed on an existing reservation.
@@ -330,14 +330,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid API key or bearer token.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Invalid API key or bearer token.
       content:
         application/json:
           schema:

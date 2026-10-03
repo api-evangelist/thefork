@@ -1,52 +1,52 @@
 {
   "provider": "thefork",
   "sources": [
+    "_original/lafourchette-booking-flow-api-openapi.yml",
+    "_original/lafourchette-data-api-openapi.yml",
+    "_original/lafourchette-phone-api-openapi.yml",
+    "_original/lafourchette-review-flow-api-openapi.yml",
+    "_original/lafourchette-v1-api-openapi.yml",
     "_original/thefork-b2b-openapi.yml",
-    "_original/thefork-pos-openapi.yml",
-    "lafourchette-booking-flow-api-openapi.yml",
-    "lafourchette-data-api-openapi.yml",
-    "lafourchette-phone-api-openapi.yml",
-    "lafourchette-review-flow-api-openapi.yml",
-    "lafourchette-v1-api-openapi.yml"
+    "_original/thefork-pos-openapi.yml"
   ],
   "outputs": [
-    "thefork-customers-api-openapi.yml",
-    "thefork-reservations-api-openapi.yml",
-    "thefork-reviews-api-openapi.yml",
-    "thefork-orders-api-openapi.yml",
     "thefork-booking-flow-api-openapi.yml",
     "thefork-data-api-openapi.yml",
     "thefork-phone-api-openapi.yml",
     "thefork-review-flow-api-openapi.yml",
     "thefork-create-api-openapi.yml",
-    "thefork-logo-api-openapi.yml"
+    "thefork-logo-api-openapi.yml",
+    "thefork-orders-api-openapi.yml",
+    "thefork-customers-api-openapi.yml",
+    "thefork-reservations-api-openapi.yml",
+    "thefork-reviews-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/lafourchette-booking-flow-api-openapi.yml",
-    "archived openapi/lafourchette-data-api-openapi.yml",
-    "archived openapi/lafourchette-phone-api-openapi.yml",
-    "archived openapi/lafourchette-review-flow-api-openapi.yml",
-    "archived openapi/lafourchette-v1-api-openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "thefork-b2b-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "thefork-pos-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (7 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "lafourchette-v1-api-openapi.yml: tagged paths POST /v1/create -> Create",
     "lafourchette-v1-api-openapi.yml: tagged paths PUT /v1/orders/{orderUuid} -> Orders",
     "lafourchette-v1-api-openapi.yml: tagged paths PUT /v1/{posUuid}/logo -> Logo",
     "lafourchette-v1-api-openapi.yml: declared missing tag: Create",
     "lafourchette-v1-api-openapi.yml: declared missing tag: Logo",
     "lafourchette-v1-api-openapi.yml: declared missing tag: Orders",
-    "tag 'Orders' spans 2 source specs (thefork-pos-openapi.yml, lafourchette-v1-api-openapi.yml): per-path servers applied",
-    "apis.yml register: written (+6 apis, 10 total)"
+    "thefork-b2b-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thefork-pos-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tag 'Orders' spans 2 source specs (lafourchette-v1-api-openapi.yml, thefork-pos-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
+    "thefork-booking-flow-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-create-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "thefork-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-logo-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "thefork-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-phone-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "thefork-reservations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thefork-review-flow-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "thefork-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }
