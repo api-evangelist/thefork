@@ -283,7 +283,8 @@ apis:
   description: The Create API from TheFork — 1 operation(s) for create.
   humanURL: https://docs.thefork.io/B2B-API/introduction
   baseURL: https://api.thefork.io
-  tags:
+  tags: []
+  tags_raw:
   - Create
   properties:
   - type: OpenAPI
