@@ -146,129 +146,46 @@ paths:
         '409':
           $ref: '#/components/responses/Conflict'
 components:
+  responses:
+    Conflict:
+      description: The request conflicts with the current state (e.g. unavailable slot).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Reservation:
+    ReservationUpdateRequest:
       type: object
-      properties:
-        id:
-          type: string
-          description: Reservation identifier.
-          example: rsv_8f3c2a1b
-        restaurantId:
-          type: string
-          description: Identifier of the restaurant.
-          example: rst_10293
-        status:
-          $ref: '#/components/schemas/ReservationStatus'
-        mealDate:
-          type: string
-          format: date-time
-          description: The date and time of the meal (ISO 8601).
-          example: '2026-06-20T20:30:00Z'
-        partySize:
-          type: integer
-          description: Number of guests.
-          example: 4
-        customer:
-          $ref: '#/components/schemas/Customer'
-        offer:
-          $ref: '#/components/schemas/Offer'
-        createdAt:
-          type: string
-          format: date-time
-          example: '2026-06-03T09:15:00Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2026-06-03T09:15:00Z'
-    ReservationStatus:
-      type: string
-      description: Lifecycle status of a reservation.
-      enum:
-      - REQUESTED
-      - RECORDED
-      - CONFIRMED
-      - CANCELED
-      - REFUSED
-      - NO_SHOW
-      - ARRIVED
-      - SEATED
-      - LEFT
-    ReservationCreateRequest:
-      type: object
-      required:
-      - mealDate
-      - partySize
-      - customer
+      description: Fields that can be changed on an existing reservation.
       properties:
         mealDate:
           type: string
           format: date-time
-          description: The date and time of the meal (ISO 8601).
-          example: '2026-06-20T20:30:00Z'
+          description: Updated meal date and time (ISO 8601).
+          example: '2026-06-20T21:00:00Z'
         partySize:
           type: integer
           minimum: 1
-          description: Number of guests.
-          example: 4
-        customer:
-          $ref: '#/components/schemas/CustomerInput'
-        offerId:
-          type: string
-          description: Identifier of an applied offer, if any.
-          example: off_summer25
-        menuId:
-          type: string
-          description: Identifier of a selected preset menu, if any.
-          example: menu_tasting
-        notes:
-          type: string
-          description: Free-text note attached to the reservation.
-          example: Window table if possible.
-    Offer:
-      type: object
-      properties:
-        type:
-          type: string
-          example: PERCENT_DISCOUNT
-        name:
-          type: string
-          example: Summer 2026
-        discount:
-          type: number
-          description: Discount applied, where relevant.
-          example: 25
-        price:
-          type: integer
-          description: Price in the smallest currency unit (cents).
-          example: 4500
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        message:
-          type: string
-    CustomerInput:
-      type: object
-      required:
-      - firstName
-      - lastName
-      properties:
-        firstName:
-          type: string
-          example: Camille
-        lastName:
-          type: string
-          example: Durand
-        email:
-          type: string
-          format: email
-          example: camille.durand@example.com
-        phoneNumber:
-          type: string
-          description: Phone number in international format.
-          example: '+33612345678'
+          description: Updated number of guests.
+          example: 5
     Customer:
       type: object
       properties:
@@ -309,58 +226,141 @@ components:
             type: string
           example:
           - terrace
-    ReservationUpdateRequest:
+    Offer:
       type: object
-      description: Fields that can be changed on an existing reservation.
+      properties:
+        type:
+          type: string
+          example: PERCENT_DISCOUNT
+        name:
+          type: string
+          example: Summer 2026
+        discount:
+          type: number
+          description: Discount applied, where relevant.
+          example: 25
+        price:
+          type: integer
+          description: Price in the smallest currency unit (cents).
+          example: 4500
+    CustomerInput:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        firstName:
+          type: string
+          example: Camille
+        lastName:
+          type: string
+          example: Durand
+        email:
+          type: string
+          format: email
+          example: camille.durand@example.com
+        phoneNumber:
+          type: string
+          description: Phone number in international format.
+          example: '+33612345678'
+    ReservationStatus:
+      type: string
+      description: Lifecycle status of a reservation.
+      enum:
+      - REQUESTED
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - REFUSED
+      - NO_SHOW
+      - ARRIVED
+      - SEATED
+      - LEFT
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+    ReservationCreateRequest:
+      type: object
+      required:
+      - mealDate
+      - partySize
+      - customer
       properties:
         mealDate:
           type: string
           format: date-time
-          description: Updated meal date and time (ISO 8601).
-          example: '2026-06-20T21:00:00Z'
+          description: The date and time of the meal (ISO 8601).
+          example: '2026-06-20T20:30:00Z'
         partySize:
           type: integer
           minimum: 1
-          description: Updated number of guests.
-          example: 5
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid API key or bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: The request conflicts with the current state (e.g. unavailable slot).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          description: Number of guests.
+          example: 4
+        customer:
+          $ref: '#/components/schemas/CustomerInput'
+        offerId:
+          type: string
+          description: Identifier of an applied offer, if any.
+          example: off_summer25
+        menuId:
+          type: string
+          description: Identifier of a selected preset menu, if any.
+          example: menu_tasting
+        notes:
+          type: string
+          description: Free-text note attached to the reservation.
+          example: Window table if possible.
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Reservation identifier.
+          example: rsv_8f3c2a1b
+        restaurantId:
+          type: string
+          description: Identifier of the restaurant.
+          example: rst_10293
+        status:
+          $ref: '#/components/schemas/ReservationStatus'
+        mealDate:
+          type: string
+          format: date-time
+          description: The date and time of the meal (ISO 8601).
+          example: '2026-06-20T20:30:00Z'
+        partySize:
+          type: integer
+          description: Number of guests.
+          example: 4
+        customer:
+          $ref: '#/components/schemas/Customer'
+        offer:
+          $ref: '#/components/schemas/Offer'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-06-03T09:15:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-06-03T09:15:00Z'
   parameters:
-    ReservationId:
-      name: id
-      in: path
-      required: true
-      description: The reservation identifier.
-      schema:
-        type: string
     RestaurantId:
       name: id
       in: path
       required: true
       description: The restaurant identifier.
+      schema:
+        type: string
+    ReservationId:
+      name: id
+      in: path
+      required: true
+      description: The reservation identifier.
       schema:
         type: string
   securitySchemes:

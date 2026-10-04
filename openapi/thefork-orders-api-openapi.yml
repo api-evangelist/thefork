@@ -239,24 +239,26 @@ paths:
     - url: https://api.thefork.io/pos/v1
       description: Production (POS provider callbacks to TheFork)
 components:
+  responses:
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Customer:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        allergies:
-          type: array
-          items:
-            type: string
-        dietaryRestrictions:
-          type: array
-          items:
-            type: string
     Order:
       type: object
       required:
@@ -297,27 +299,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Table'
-    ReservationStatus:
-      type: string
-      enum:
-      - RECORDED
-      - CONFIRMED
-      - CANCELED
-      - NO_SHOW
-      - REQUESTED
-      - REFUSED
-    Money:
+    Customer:
       type: object
-      description: A monetary amount with currency.
       properties:
-        amount:
-          type: integer
-          description: Amount in the smallest currency unit (cents).
-          example: 12500
-        currency:
+        id:
           type: string
-          description: ISO 4217 currency code.
-          example: EUR
+        firstName:
+          type: string
+        lastName:
+          type: string
+        allergies:
+          type: array
+          items:
+            type: string
+        dietaryRestrictions:
+          type: array
+          items:
+            type: string
     Offer:
       type: object
       properties:
@@ -330,6 +328,15 @@ components:
         price:
           type: integer
           description: Price in the smallest currency unit (cents).
+    ReservationStatus:
+      type: string
+      enum:
+      - RECORDED
+      - CONFIRMED
+      - CANCELED
+      - NO_SHOW
+      - REQUESTED
+      - REFUSED
     Error:
       type: object
       properties:
@@ -337,6 +344,27 @@ components:
           type: integer
         message:
           type: string
+    Money:
+      type: object
+      description: A monetary amount with currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest currency unit (cents).
+          example: 12500
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    Table:
+      type: object
+      properties:
+        name:
+          type: string
+          example: T12
+        areaName:
+          type: string
+          example: Terrace
     OrderClose:
       type: object
       required:
@@ -348,34 +376,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the order was closed.
-    Table:
-      type: object
-      properties:
-        name:
-          type: string
-          example: T12
-        areaName:
-          type: string
-          example: Terrace
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid API key or bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
