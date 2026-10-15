@@ -1,14 +1,26 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/thefork-b2b-openapi.yml
-docs: https://docs.thefork.io/B2B-API/authentication
-note: TheFork does not use or document OAuth scopes; access is granted via an Auth0
-  client credentials flow (client_id/client_secret exchanged for a bearer token),
-  with POS/Partners access controlled by API keys rather than scopes
-  (https://docs.thefork.io/B2B-API/authentication).
+generated: '2026-10-14'
+method: none
+source: openapi/thefork-customers-api-openapi.yml, openapi/thefork-reservations-api-openapi.yml,
+  openapi/thefork-reviews-api-openapi.yml
 schemes:
 - name: OAuth2ClientCredentials
-  source: openapi/thefork-b2b-openapi.yml
+  source: openapi/thefork-customers-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.thefork.io/oauth/token
+  description: Auth0 OAuth 2.0 client credentials flow. Exchange client_id and client_secret
+    for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io.
+    Tokens expire after 8600 seconds.
+- name: OAuth2ClientCredentials
+  source: openapi/thefork-reservations-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.thefork.io/oauth/token
+  description: Auth0 OAuth 2.0 client credentials flow. Exchange client_id and client_secret
+    for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io.
+    Tokens expire after 8600 seconds.
+- name: OAuth2ClientCredentials
+  source: openapi/thefork-reviews-api-openapi.yml
   flows:
   - flow: clientCredentials
     tokenUrl: https://auth.thefork.io/oauth/token
@@ -16,3 +28,5 @@ schemes:
     for a bearer token at https://auth.thefork.io/oauth/token with audience https://api.thefork.io.
     Tokens expire after 8600 seconds.
 scopes: []
+note: The OAuth2 security scheme(s) in the OpenAPI declare no scopes, and no security requirement
+  references one.
