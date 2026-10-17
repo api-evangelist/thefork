@@ -77,27 +77,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Invalid API key or bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    RestaurantId:
-      name: id
-      in: path
-      required: true
-      description: The restaurant identifier.
-      schema:
-        type: string
   schemas:
     Customer:
       type: object
@@ -146,6 +125,27 @@ components:
           type: integer
         message:
           type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid API key or bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    RestaurantId:
+      name: id
+      in: path
+      required: true
+      description: The restaurant identifier.
+      schema:
+        type: string
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2
