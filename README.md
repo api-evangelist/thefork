@@ -1,4 +1,4 @@
-# TheFork (thefork)
+# TheFork
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,109 +66,201 @@
 
 TheFork is a leading European restaurant reservations marketplace, part of Tripadvisor, connecting diners with tens of thousands of restaurants across Europe and beyond. Through its developers portal, TheFork exposes a public REST API surface for restaurants, point-of-sale systems, and third-party partners to integrate with TheFork Management platform. The API enables partners to build custom booking flows, create and manage reservations with full detail such as meal date, party size, and customer data, surface preset menus and curated dining experiences, and access personalized guest data including allergies, dietary restrictions, and seating preferences. Offerings include a B2B API for restaurants and a POS API for point-of-sale providers.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/thefork/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/thefork/refs/heads/main/apis.yml)
+**Areas:** Restaurant · Reservations · Booking · Dining · Point-of-Sale · Marketplace
 
-## Scope
+## TheFork on APIs.io
 
-- **Type:** Index
+Everything profiled for TheFork is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/thefork/](https://apis.io/providers/thefork/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (10)
 
-- Restaurant
-- Reservations
-- Booking
-- Dining
-- Point Of Sale
-- Marketplace
+- [TheFork Customers API](https://apis.io/apis/thefork/thefork-customers-api/) — Look up customer and guest profile data.
+- [TheFork Orders API](https://apis.io/apis/thefork/thefork-orders-api/) — Open and close point-of-sale orders tied to reservations.
+- [TheFork Reservations API](https://apis.io/apis/thefork/thefork-reservations-api/) — Create, retrieve, and update reservations.
+- [TheFork Reviews API](https://apis.io/apis/thefork/thefork-reviews-api/) — Retrieve guest review details.
+- [TheFork Booking flow API](https://apis.io/apis/thefork/thefork-booking-flow-api/) — The Booking flow API from TheFork — 8 operation(s) for booking flow.
+- [TheFork Create API](https://apis.io/apis/thefork/thefork-create-api/) — The Create API from TheFork — 1 operation(s) for create.
+- [TheFork Data API](https://apis.io/apis/thefork/thefork-data-api/) — The Data API from TheFork — 4 operation(s) for data.
+- [TheFork Logo API](https://apis.io/apis/thefork/thefork-logo-api/) — The Logo API from TheFork — 1 operation(s) for logo.
+- [TheFork Phone API](https://apis.io/apis/thefork/thefork-phone-api/) — The Phone API from TheFork — 3 operation(s) for phone.
+- [TheFork Review flow API](https://apis.io/apis/thefork/thefork-review-flow-api/) — The Review flow API from TheFork — 3 operation(s) for review flow.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-06-02
-- **Modified:** 2026-06-03
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### TheFork B2B API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-TheFork B2B API lets restaurants and groups integrate with TheFork Management platform. It supports designing custom booking flows, creating reservations with meal date, party size, and customer data, presenting preset menus, accessing personalized guest data such as allergies, dietary restrictions, and seating preferences, and retrieving guest reviews. The API is fronted by a Kong gateway and documented with OpenAPI 3. Authentication uses the Auth0 OAuth 2.0 client credentials flow to obtain a bearer access token.
+- [Thefork Agentic Access](https://apis.io/agentic-access/thefork/thefork-agentic-access/)
 
-- **Human URL:** [https://docs.thefork.io/B2B-API/introduction](https://docs.thefork.io/B2B-API/introduction)
-- **Base URL:** `https://api.thefork.io`
+#### JSON Schema (15)
 
-#### Tags
+The data models the API reads and writes.
 
-- Reservations
-- Booking
-- Menus
-- Guests
-- Reviews
+- [Customer](https://apis.io/schemas/thefork/thefork-b2b-customer/)
+- [CustomerInput](https://apis.io/schemas/thefork/thefork-b2b-customer-input/)
+- [Offer](https://apis.io/schemas/thefork/thefork-b2b-offer/)
+- [Reservation](https://apis.io/schemas/thefork/thefork-b2b-reservation/)
+- [ReservationCreateRequest](https://apis.io/schemas/thefork/thefork-b2b-reservation-create-request/)
+- [ReservationStatus](https://apis.io/schemas/thefork/thefork-b2b-reservation-status/)
+- [ReservationUpdateRequest](https://apis.io/schemas/thefork/thefork-b2b-reservation-update-request/)
+- [Review](https://apis.io/schemas/thefork/thefork-b2b-review/)
+- [Customer](https://apis.io/schemas/thefork/thefork-pos-customer/)
+- [Money](https://apis.io/schemas/thefork/thefork-pos-money/)
+- [Offer](https://apis.io/schemas/thefork/thefork-pos-offer/)
+- [Order](https://apis.io/schemas/thefork/thefork-pos-order/)
+- [OrderClose](https://apis.io/schemas/thefork/thefork-pos-order-close/)
+- [ReservationStatus](https://apis.io/schemas/thefork/thefork-pos-reservation-status/)
+- [Table](https://apis.io/schemas/thefork/thefork-pos-table/)
 
-#### Properties
+#### JSON Structure (2)
 
-- [Documentation](https://docs.thefork.io/B2B-API/introduction)
-- [API Reference](https://docs.thefork.io/B2B-API/API%20specifications/post-v-1-restaurants-id-reservations)
-- [Getting Started](https://docs.thefork.io/getting-started)
-- [Authentication](https://docs.thefork.io/B2B-API/authentication)
-- [OpenAPI](openapi/thefork-b2b-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/thefork-b2b.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/thefork-b2b.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/thefork-b2b-reservation-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/thefork-b2b-customer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/thefork-b2b-review-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/thefork-b2b-reservation-structure.json)
-- [J S O N- L D](json-ld/thefork-b2b-context.jsonld)
-- [Example](examples/thefork-b2b-create-reservation-example.json)
-- [Example](examples/thefork-b2b-get-reservation-example.json)
-- [Example](examples/thefork-b2b-find-customer-by-phone-example.json)
-- [Example](examples/thefork-b2b-get-review-example.json)
+Data models expressed in JSON Structure.
 
-### TheFork POS API
+- [Thefork B2B Reservation Structure](https://apis.io/json-structure/thefork/thefork-b2b-reservation-structure/)
+- [Thefork Pos Order Structure](https://apis.io/json-structure/thefork/thefork-pos-order-structure/)
 
-TheFork POS API enables point-of-sale providers to integrate their systems with TheFork Management platform, synchronizing reservations and restaurant operations data. TheFork calls the POS provider's configured webhook endpoints (for example a receipt opening URL) to open orders when a diner is seated, then receives final order details such as total amount and currency back, marking reservations as left when payment completes. Authentication uses an API key supplied in the X-Api-Key header for requests to TheFork, and a bearer token for callbacks.
+#### JSON-LD (3)
 
-- **Human URL:** [https://docs.thefork.io/POS-API/how-it-works](https://docs.thefork.io/POS-API/how-it-works)
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Thefork B2B Context](https://apis.io/jsonld/thefork/thefork-b2b-context/)
+- [Thefork Context](https://apis.io/jsonld/thefork/thefork-context/)
+- [Thefork Pos Context](https://apis.io/jsonld/thefork/thefork-pos-context/)
 
-- Point Of Sale
-- Reservations
-- Orders
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://docs.thefork.io/POS-API/how-it-works)
-- [API Reference](https://docs.thefork.io/POS-API/Flow/create-order)
-- [Getting Started](https://docs.thefork.io/getting-started)
-- [Authentication](https://docs.thefork.io/preliminary-steps)
-- [OpenAPI](openapi/thefork-pos-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/thefork-pos.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/thefork-pos.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/thefork-pos-order-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/thefork-pos-order-structure.json)
-- [Example](examples/thefork-pos-create-order-example.json)
+- [Thefork Vocabulary](https://apis.io/vocabularies/thefork/thefork-vocabulary/)
 
-## Common Properties
+#### Examples (5)
+
+Example requests and responses.
+
+- [Thefork B2B Create Reservation Example](https://apis.io/examples/thefork/thefork-b2b-create-reservation-example/)
+- [Thefork B2B Find Customer By Phone Example](https://apis.io/examples/thefork/thefork-b2b-find-customer-by-phone-example/)
+- [Thefork B2B Get Reservation Example](https://apis.io/examples/thefork/thefork-b2b-get-reservation-example/)
+- [Thefork B2B Get Review Example](https://apis.io/examples/thefork/thefork-b2b-get-review-example/)
+- [Thefork Pos Create Order Example](https://apis.io/examples/thefork/thefork-pos-create-order-example/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [TheFork B2B API](https://apis.io/collections/thefork/open-thefork-b2b/)
+- [TheFork B2B Customers API](https://apis.io/collections/thefork/open-thefork-customers-api/)
+- [TheFork B2B Customers Orders API](https://apis.io/collections/thefork/open-thefork-orders-api/)
+- [TheFork POS API](https://apis.io/collections/thefork/open-thefork-pos/)
+- [TheFork B2B Customers Reservations API](https://apis.io/collections/thefork/open-thefork-reservations-api/)
+- [TheFork B2B Customers API](https://apis.io/collections/thefork/postman-thefork-customers-api/)
+- [TheFork B2B Customers Orders API](https://apis.io/collections/thefork/postman-thefork-orders-api/)
+- [TheFork B2B Customers Reservations API](https://apis.io/collections/thefork/postman-thefork-reservations-api/)
+- [TheFork B2B Customers Reviews API](https://apis.io/collections/thefork/postman-thefork-reviews-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [TheFork — jsonschema rules](https://apis.io/rules/thefork/thefork-jsonschema-spectral-rules/)
+- [TheFork API Rules](https://apis.io/rules/thefork/thefork-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Thefork Authentication](https://apis.io/security/thefork/thefork-authentication/)
+- [Thefork Domain Security](https://apis.io/security/thefork/thefork-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Thefork Scopes](https://apis.io/scopes/thefork/thefork-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Thefork Plans Pricing](https://apis.io/plans/thefork/thefork-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Thefork Rate Limits](https://apis.io/rate-limits/thefork/thefork-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Thefork Finops](https://apis.io/finops/thefork/thefork-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.thefork.com)
 - [Documentation](https://docs.thefork.io/)
-- [Portal](https://docs.thefork.io/)
-- [Getting Started](https://docs.thefork.io/getting-started)
-- [Sign Up](https://docs.thefork.io/preliminary-steps)
-- [Terms of Service](https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf)
+- [Getting started](https://docs.thefork.io/getting-started)
+- [API reference](https://docs.thefork.io/B2B-API/API%20specifications/get-v-1-customers)
 - [Blog](https://medium.com/thefork)
-- [GitHub Organization](https://github.com/lafourchette)
-- [Spectral Rules](rules/thefork-rules.yml)
-- [Vocabulary](vocabulary/thefork-vocabulary.yml)
-- [J S O N- L D](json-ld/thefork-context.jsonld)
-- [Plans](plans/thefork-plans-pricing.yml)
-- [Rate Limits](rate-limits/thefork-rate-limits.yml)
-- [Fin Ops](finops/thefork-finops.yml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
+- [Terms of service](https://docs.thefork.io/pdf/LaFourchette-Partners-API-Licence-2.pdf)
+- [GitHub](https://github.com/lafourchette)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 40.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 41.6 |
+| Contract governance | 23.5 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 53.6 |
+| Access clarity | 28.9 |
+
+**Agent readiness 27.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | unknown |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/thefork/](https://apis.io/providers/thefork/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for TheFork: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/thefork/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
